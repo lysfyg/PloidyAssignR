@@ -237,18 +237,26 @@ fct_plot_distribution_patterns <- function(data_ploidy,
 
 #' fct_plot_sc_heatmap
 #'
+#' fct_plot_sc_heatmap is a function in the PloidyAssignR toolkit designed to visualize normalized count data
+#' as a heatmap, specifically for single-cell analysis. The function focuses on displaying the variation in normalized counts
+#' across cells within a specified genomic region. y representing normalized counts in a heatmap format, the function aids in the identification of
+#' patterns and anomalies in chromosomal segments across different cells.
+#'
 #' @import data.table
 #' @import pheatmap
 #' @import magrittr
 #' @importFrom tidyr pivot_wider
 #'
-#' @param data_ploidy Data.table containing the consensus ploidy values
-#' @param input_chrom Desired chromosome that should be plotted.
-#' @param input_start If supplied only plots SC ploidy values in the specified segment.
-#' @param input_end If supplied only plots SC ploidy values in the specified segment.
+#' @param data_ploidy Data.table containing normalized count data for single cells.
+#' @param input_chrom Specifies the chromosome for which the heatmap is to be generated.
+#' @param input_start (Optional) Start position of the genomic region for a more focused heatmap.
+#' @param input_end (Optional) End position of the genomic region for a more focused heatmap.
 #'
-#' @return Returns a heatmap of the color-coded SC copy numbers.
-#' @examples fct_plot_sc_heatmap(data_K562_ploidy, input_chrom = "chr1")
+#' @return Returns a heatmap visualization created using the pheatmap package. The heatmap displays the variation in normalized counts across cells,
+#' with each cell represented as a row and genomic positions (formatted in Mb) as columns. The copy number is color-coded as diplayed by a legend.
+#' @examples
+#' # Create a heatmap for chromosome 1 of a single-cell dataset
+#'heatmap_plot <- fct_plot_sc_heatmap(data_ploidy, input_chrom = "chr1")
 #' @export
 #'
 #'
