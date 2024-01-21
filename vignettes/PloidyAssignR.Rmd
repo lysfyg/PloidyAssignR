@@ -1,0 +1,223 @@
+---
+title: "PloidyAssign"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PloidyAssignR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    echo = TRUE,
+    warning = FALSE,
+    message = FALSE
+)
+```
+
+
+#Exploiting Mitotic Chromatid Segregation Patterns for Systematic Inference of Ploidy in Single Cells
+PloidyAssignR is a computational framework that allows automated ploidy assignment from Strand-seq libraries. The tool observes ploidy-dependent strand state distribution patterns and optimizes kmeans clustering to assign the respective ploidy state. 
+```{r setup}
+library(PloidyAssignR)
+library(ggplot2)
+```
+
+## Quick Run
+Customize the following function to your needs to run the analysis in one go. We recommend using the individual functions for analysis (see example workflow below) for first time users.
+```{}
+PloidyAssignR_run_all(
+  input_data = "path/to/strandseq/count",
+  dt_input_ROC = "path/to/ROC", # optional
+  max_ploidy_force = NULL, #optional
+  input_chrom = NULL, # default: all chromosomes present in data set
+  input_window = 1e+07, # default: window width 10 Mbp
+  input_step = 5e+06, # default: step length 5 Mbp
+  export_path = NULL, # default: does not save data to file. 
+  export_file_name = "PloidyAssignR"
+)
+```
+
+## Example Workflow: Ploidy Assignment in K562 Strand-seq libraries
+
+### Input Data Set
+
+PloidyAssignR requires binned strand-specific count data such as obtained from Strand-seq libraries. Such count data sets can be generated using the "MosaiCatcher Pipeline" (https://github.com/friendsofstrandseq/mosaicatcher-pipeline). 
+We also recommend selecting Strand-seq libraries for analysis using ASHLEYS quality control pipeline (https://github.com/friendsofstrandseq/ashleys-qc-pipeline).
+```{r Input Data, message=FALSE}
+data_K562_example_input <- input_prep(input_data = data_K562_strand_seq_count)
+
+data_K562_example_input
+```
+
+
+### Calculating Relative W-strand State Frequency Fraction_w
+
+The relative W-strand state frequency fraction_w represents the proportion of W-oriented strands. PloidyAssignR applies a sliding window across the length of a chromosome and calculates fraction_w from the Strand-seq count data.
+Choose parameters to specify window width and step length as well as the chromosomes included in analysis. 
+
+```{r Calculate Fractions, message=FALSE, paged.print=FALSE}
+data_example <- calWatsonFractions(data_K562_example_input,
+                                   input_chrom = NULL, 
+                                   # default: all chromosomes present in data set
+                                   input_window = 10000000, 
+                                   # default: window width 10 Mbp
+                                   input_step = 5000000 
+                                   # default: step length 5 Mbp
+                                   )
+data_example
+```
+
+
+### Assigning Ploidy States
+
+The relative W-strand state frequency forms ploidy-dependent distribution patterns (modeled by a binomial distribution). PloidyAssignR counts the number of clusters in these distribution patterns for each sliding window. The number of clusters k is directly connected to the ploidy state n: n=k-1
+The maximum ploidy for a data set is limited by the number of cells and automatically determined. The user can force a maximum ploidy by setting max_ploidy_force to a specific value (max_ploidy = 1...n)
+
+```{r Assign Ploidy, message=FALSE}
+data_example <- assignConsensusPloidy(data_example)
+print(data_example)
+```
+
+### Visualization of Ploidy Analysis and Preparing for SC Copy Number Assignment
+The ploidy assignment results can be visualized using a karyogram style bar graph and a scatter plot of the distribution patterns of fraction_w.
+
+#### Distribution Pattern Plot
+The distribution pattern plot is the graphic representation of the relative W-strand state frequency fraction_w across the genome. Each dot is the fraction_w value of an individual cell within a sliding window. The distribution pattern arises from the binomially distributed of mitotic strand segregation. The underlying ploidy state is determined by counting the number of clusters. The distribution pattern plot includes a colored strip at the bottom, which depicts the ploidy-state as determined by PloidyAssignR. 
+
+This plot can be used to visually evaluate the ploidy assignment results and distinguish regions with more homogenous or heterogenous distribution patterns. 
+
+```{r Plot Patterns,fig.align="center", fig.width=10, fig.height=4, fig.cap="Figure: Distribution Patterns of Chr7 K562", message = FALSE}
+fct_plot_distribution_patterns(data_example, input_chrom ="chr7", point_size = 0.2)
+```
+
+#### Karyogram Plot
+The consensus ploidy state is color-coded (see graph legend) and represents the majority ploidy state of the cell population. It gives a quick visual overview of the overall ploidy and the copy number of individual chromosome segments. 
+
+```{r Plot Karyogram,fig.align="center", fig.width=10, fig.height=10, fig.cap="Figure: Ploidy Assignment for K562", message = FALSE}
+fct_plot_karyogram(data_example)
+```
+
+To obtain a rough estimate of the ploidy states contributing to the mean ploidy of a sample, we count the number of bins for each ploidy state:
+
+```{r Ploidy Summary, message = FALSE, echo = FALSE}
+data_summary <- ploidy_summary(data_K562_ploidy)
+print(data_summary)
+```
+
+
+### Understanding Distribution Patterns
+A significant amount information can be obtained just from inspecting the distribution pattern plot, by itself. The following steps can help to obtain a basic understanding of the sample's karyotype:
+
+1. Flip through all chromosomes and check whether the ploidy state in the colored-strip matches the number of visually distinguishable clusters
+
+  - Ploidy n = Number of Clusters k - 1
+2. If there are regions where visually the number of clusters does not match the ploidy state, consider the following:
+  - Could the distribution pattern be a mix of several different distribution pattern and result from subclonal copy number deviation?
+  - Are these regions of max_ploidy or higher? Then the number of cells might be too low for pattern-based ploidy assignment. Perform SC Copy Number Assignment and then reevaluate.
+  - Are these centromeric regions? These regions are highly repetitive and the quality of sequencing alignment might be too low for analysis. Consider excluding these regions from analysis.
+3. Highlight individual cells and observe the fraction_w values across the chromosome. Fraction_w changes can results from:
+  - structural variation that impacts strand orientation (e.g. inversions)
+  - structural variation where chromosome segments co-segregate with other chromosomes (e.g. translocations). These translocated segments are aligned to their chromosome origin, however are physically linked to another chromosome. That way these segments have the same strand state as the recipient chromosome. As a result, the fraction_w value changes in some cells. This is exploited for translocation analysis in diploid cells (Sanders et al. 2020). In the case of unbalanced translocations, these translocated segments appear as a ploidy gain. 
+
+
+### Single Cell Copy Number Assignment
+
+PloidyAssignR normalizes the Strand-seq read count by determining a count baseline for Regions of Confidence (ROC) selected by the user (see above). This way we can firstly detect copy number of each individual cell and sliding window and secondly also detect regions with higher amplification levels as determined as max_ploidy.
+
+#### Selecting Regions of Confidence
+Flip through the distribution pattern plots to select ROC. ROC should have a low likelihood of subclonal copy number deviation contributing to the consensus ploidy and therefore should fulfill the following criteria:
+
+1. homogenous strand state distribution pattern/clustering
+2. narrow clustering of strand states
+3. individual fraction_w values of cells should be consistent
+
+For this analysis we have selected the following ROC:
+```{r ROC example, echo=FALSE}
+data_K562_ROC
+```
+Create a text file with the columns chrom, start, end and import as data.table:
+```{}
+your_ROC <- data.table::fread(file = "path/to/ROC")
+```
+
+  
+#### Normalization of Read Count Data
+PloidyAssignR determines the mean read count in the ROC and divides the mean read count with the respective ploidy state of those ROC. The resulting baseline read count (that is the read count of one homolog) is then used to normalize all other regions to obtain the single cell copy number.
+```{r SC Copy Number, message = FALSE}
+data_example <- scCoverageNorm(data_example,
+                               data_K562_ROC)
+
+print(data_example)
+```
+
+### Single Cell Heatmap
+To visualize the single cell copy number within the context of the cell population we use a heatmap that uses hierachical clustering to group cells. See an example plot of Chr2 for K562 below.
+```{r Plot Heatmap,fig.align="center", fig.width=7, fig.height=10, fig.cap="Figure: Example Heatmap of SC Copy Number - Chr2 K562"}
+fct_plot_sc_heatmap(data_example, input_chrom = "chr2")
+```
+
+## Example Analysis of Subclonal Copy Number Deviation in Chr20 p-arm of K562
+
+The p-arm of Chr20 of K562 carries an example for subclonal copy number deviation that can be detected using PloidyAssignR. We can observe several signs of individual cells not following the majority ploidy state:
+
+1. Heterogenous distribution pattern 
+2. A subset of cells has a different SC copy number and is clustered together
+
+```{r Plot Subclone Heatmap,fig.align="center", fig.width=10, fig.height=10, fig.cap="Figure: K562 Chr20 Subclonal Copy Number Deviation in Eight Cells (Trisomic Signal in p-Arm)"}
+fct_plot_sc_heatmap(data_K562_ploidy, input_chrom = "chr20")
+```
+```{r Plot Subclone Pattern,fig.align="center", fig.width=10, fig.height=4, fig.cap="Figure: K562 Chr20 p-arm - Example Cell Deviating from Majority Distribution Pattern"}
+fct_plot_distribution_patterns(data_K562_ploidy[start<=35000000], 
+                               input_chrom ="chr20", point_size = 0.2, 
+                               input_cell = "03|380", reg_color = "grey", 
+                               cell_color = "black", cell_size = 0.7)
+```
+
+### Strand-seq Count Plot of individual Chromosomes and selected Cells
+The original Strand-seq count data can be used to validate the copy number assignment by PloidyAssignR:
+
+- For this purpose we plot the Strand-seq count data of the cells determined to be the subclone: "03|393", "03|324" ,"01|366", "03|337", "03|380", "03|396", "01|370" and "03|378"
+- This is then compared to randomly chosen cells of the major clone. We selected eight random cells for better visualization: "01|384", "03|340", "01|379", "01|306", "03|314", "01|342", "01|317" and "03|388"
+
+```{r Strand-seq Plot Subclone,fig.align="center", fig.width=7, fig.height=10, fig.cap="Figure: Scaled Strand-seq Count Plot of K562 Cells with Subclonal Trisomic Signal in Chr20p"}
+subclone_cells <- c("03|393", "03|324" ,"01|366", "03|337", "03|380", "03|396", "01|370", "03|378")
+
+plot_subclone <- fct_plot_counts_cellwise(data_K562_strand_seq_count[start<=35000000],
+                                          data_SC_CN = data_K562_ploidy,
+                         selected_cells = subclone_cells,
+                         input_chrom = "chr20",
+                         lab_title = "K562 Chr20p Subclone Candidates"
+                         )
+plot_subclone + ylim(-50,50)
+
+```
+
+```{r Strand-seq Plot Majority,fig.align="center", fig.width=7, fig.height=10, fig.cap="Figure: Scaled Strand-seq Count Plot of eight K562 Cells Chr20p as Example for the Majority Disomic Signal"}
+K562_major_clone <- data_K562_strand_seq_count[chrom=="chr20"&start<=30000000]
+K562_major_clone <-K562_major_clone[!(cell%in% subclone_cells)]
+
+major_clone <- K562_major_clone[,unique(cell)]
+major_clone_subset <- major_clone[1:8]
+plot_majority <- fct_plot_counts_cellwise(data_K562_strand_seq_count[start<=35000000],
+                                          data_SC_CN = data_K562_ploidy,
+                         selected_cells = major_clone_subset,
+                         input_chrom = "chr20",
+                         lab_title = "K562 Chr20p Eight Cells from Major Clone"
+                         )
+plot_majority + ylim(-50,50)
+```
+
+The eight cells of the subclone carry a trisomic signal in Chr20p arm. 
+
+## References
+
+Sanders AD, Meiers S, Ghareghani M, Porubsky D, Jeong H, van Vliet MACC, Rausch T, Richter-Pechańska P, Kunz JB, Jenni S, Bolognini D, Longo GMC, Raeder B, Kinanen V, Zimmermann J, Benes V, Schrappe M, Mardin BR, Kulozik AE, Bornhauser B, Bourquin JP, Marschall T, Korbel JO. Single-cell analysis of structural variations and complex rearrangements with tri-channel processing. Nat Biotechnol. 2020 Mar;38(3):343-354. doi: 10.1038/s41587-019-0366-x. Epub 2019 Dec 23. PMID: 31873213; PMCID: PMC7612647.
+
+
+```{r}
+sessionInfo()
+```
+

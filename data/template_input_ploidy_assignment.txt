@@ -1,0 +1,4 @@
+chrom	start	end	bin	ploidy_est	res_chi_pval	validation
+chr1	0	1e+07	1	2	NA	NA
+chr2	9e+06	1.9e+07	2	2	NA	NA
+chrX	5e+06	1.5e+07	3	2	NA	NA

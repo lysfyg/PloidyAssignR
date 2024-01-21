@@ -1,0 +1,2 @@
+# test_res_ploidy <- PloidyAssignR_run_all("/Users/tania/Documents/Karriere/Uni/Korbel/git_PloidyAssignR/PloidyAssignR_pkg/data-raw/K562_MC_count.txt.gz", input_chrom = c("chr1"))
+# test_res_SC <- PloidyAssignR_run_all("/Users/tania/Documents/Karriere/Uni/Korbel/git_PloidyAssignR/PloidyAssignR_pkg/data-raw/K562_MC_count.txt.gz", dt_input_ROC = "/Users/tania/Documents/Karriere/Uni/Korbel/git_PloidyAssignR/PloidyAssignR_pkg/data-raw/K562_regions_of_confidence.txt", input_chrom = c("chr1"))

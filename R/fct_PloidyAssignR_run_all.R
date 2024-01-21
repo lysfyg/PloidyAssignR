@@ -1,0 +1,74 @@
+#' PloidyAssignR run all analysis
+#'
+#' Wrapper function to run complete analysis including consensus and SC ploidy (if ROC file is available).
+#'
+#' @param input_data Path to MC counts file
+#' @param input_ROC Path to file containing regions of confidence
+#' @param max_ploidy_force Optional: Set max ploidy.
+#' @param input_chrom Optional: Set chromosome selection for analysis.
+#' @param input_window Optional: Set input window size. Default: 10000000
+#' @param input_step Optional: Set input step size. Default: 5000000
+#' @param export_path Optional export to given directory.
+#' @param export_file_name Name that should be used to create exported files.
+
+#'
+#' @return data.table containing a column for Watson fractions, consensus ploidy, and SCnorm.
+#' @examples
+#' analysis_results <- PloidyAssignR_run_all(
+#'                         data_K562_strand_seq_count,
+#'                         data_K562_ROC,
+#'                         input_chrom = c("chr1", "chr18", "chr20")
+#'                         )
+#' # use internal plotting functions to visualize results: e.g. fct_plot_karyogram(analysis_results)
+#' @export
+#'
+
+PloidyAssignR_run_all <- function(input_data,
+                                  input_ROC = NULL,
+                                  max_ploidy_force = NULL,
+                                  input_chrom = NULL,
+                                  input_window = 10000000,
+                                  input_step = 5000000,
+                                  export_path = NULL,
+                                  export_file_name = "PloidyAssignR") {
+    data_ploidy <- input_prep(input_data)
+
+    if (!("cons_ploidy" %in% colnames(data_ploidy))) { # if no column with cons_ploidy exists, performs ploidy analysis
+        if (!("fraction_w" %in% colnames(data_ploidy))) {
+            message("Data does not contain fraction_w column. Starting Watson Fractions calculations.\n")
+            data_ploidy <- calWatsonFractions(dt_input_count = data_ploidy,
+                                              input_chrom = input_chrom,
+                                              input_window = input_window, input_step = input_step)
+        }
+        message("Data does not contain cons_ploidy column. Starting Consensus Ploidy calculations. \n")
+        data_ploidy <- assignConsensusPloidy(dt_input_fractions = data_ploidy,
+                                             input_chrom = input_chrom,
+                                             max_ploidy_force = max_ploidy_force)
+    }
+
+
+    if (!is.null(input_ROC)) {
+        message("You have supplied a file containing regions of confidence for SC normalization.\n")
+        # v path vs data.table
+        if (assertthat::is.string(input_ROC)) {
+            # v Make sure file extension is correct
+            assertthat::assert_that(tools::file_ext(input_ROC) %in% c("csv", "txt", "gz"),
+                                    msg = "Wrong file extension. Please make sure you have supplied the correct file.")
+            # IO Load dataset
+            data_ROC <- data.table::fread(input_ROC)
+        }else{
+            data_ROC <- input_ROC
+        }
+
+
+        message("Running Single Cell Normalization.\n")
+        data_ploidy <- scCoverageNorm(dt_input_fractions = data_ploidy, dt_input_ROC = input_ROC)
+    } else {
+        message("You have not supplied a file containing regions of confidence. Output contains consensus ploidy only.")
+    }
+    if (!is.null(export_path)) {
+        export_data(data_ploidy, output_folder = export_path, add_file_name = export_file_name)
+    }
+
+    return(data_ploidy)
+}
