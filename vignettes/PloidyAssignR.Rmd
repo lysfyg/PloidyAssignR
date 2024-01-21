@@ -1,6 +1,7 @@
 ---
-title: "PloidyAssign"
-output: rmarkdown::html_vignette
+title: "PloidyAssignR"
+output: 
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{PloidyAssignR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -19,7 +20,9 @@ knitr::opts_chunk$set(
 
 
 #Exploiting Mitotic Chromatid Segregation Patterns for Systematic Inference of Ploidy in Single Cells
-PloidyAssignR is a computational framework that allows automated ploidy assignment from Strand-seq libraries. The tool observes ploidy-dependent strand state distribution patterns and optimizes kmeans clustering to assign the respective ploidy state. 
+PloidyAssignR is a computational framework that allows automated ploidy assignment from Strand-seq libraries. The tool observes ploidy-dependent strand state distribution patterns and optimizes kmeans clustering to assign the respective ploidy state. This vignette provides a comprehensive guide to using PloidyAssignR. We will introduce the key functionalities of PloidyAssignR and demonstrate its application using sample data from the cell line K562, including first steps of data visualization and contextualization.
+
+
 ```{r setup}
 library(PloidyAssignR)
 library(ggplot2)
@@ -27,7 +30,7 @@ library(ggplot2)
 
 ## Quick Run
 Customize the following function to your needs to run the analysis in one go. We recommend using the individual functions for analysis (see example workflow below) for first time users.
-```{}
+```{R, eval = FALSE}
 PloidyAssignR_run_all(
   input_data = "path/to/strandseq/count",
   dt_input_ROC = "path/to/ROC", # optional
