@@ -7,20 +7,20 @@
 \format{
 A data frame with 2502414 rows and 8 variables
 \itemize{
-  \item {chrom} {Chromosome (chr1...chrX)}
-  \item {start} {Start position of the bin}
-  \item {end} {End position of the bin}
-  \item {sample} {Sample name: K562}
-  \item {cell} {Cell}
-  \item {c} {number of Crick-oriented reads in this bin}
-  \item {w} {number of Watson-oriented reads in this bin}
-  \item {class} {Class attribute as determined by MosaiCatcher pipeline}
+ \item {cell} {Identifier for each cell analyzed.}
+ \item {chrom} {Chromosome specification: chr1...chrX.}
+ \item {start} {Start position of the genomic segment, e.g. the sliding window.}
+ \item {end} {End position of the genomic segment, e.g. the sliding window.}
+ \item {sample} {Sample identifier, here specifically for K562 cells.}
+  \item {c} {Number of Crick-oriented reads in this bin.}
+  \item {w} {Number of Watson-oriented reads in this bin.}
+  \item {class} {Class attribute as determined by MosaiCatcher pipeline.}
 }
 }
 \usage{
 data(data_K562_strand_seq_count)
 }
 \description{
-A dataset containing the binned Strand-seq count data.
+A dataset containing the binned Strand-seq count data of the cell line K562.
 }
 \keyword{datasets}

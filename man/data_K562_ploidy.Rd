@@ -3,27 +3,39 @@
 \docType{data}
 \name{data_K562_ploidy}
 \alias{data_K562_ploidy}
-\title{Example Data: Results of ploidy analysis for K562 using PloidyAssignR}
+\title{Example Data: Results of ploidy analysis for K562 using PloidyAssignR.}
 \format{
 A data frame with 473863 rows and 11 variables
 \itemize{
-  \item {cell} {Cell}
-  \item {chrom} {Chromosome (chr1...chrX)}
-  \item {start} {Start position of the sliding window}
-  \item {end} {End position of the sliding window}
-  \item {sample} {Sample name: K562}
-  \item {total_count} {Total count number within the window}
-  \item {fraction_w} {Proportion of W-oriented reads within the window}
-  \item {sil_k} {optimized number of clusters k by maximizing a silhouette score}
-  \item {cons_ploidy} {Ploidy state as determined from counting clusters n = k-1}
-  \item {baseline_coverage} {Mean count number within the ROC divided by the specific consensus.}
-  \item {norm_count} {Normalized count number for the window: total_count divided by the baseline_coverage }
+ \item {cell} {Identifier for each cell analyzed.}
+ \item {chrom} {Chromosome specification: chr1...chrX.}
+ \item {start} {Start position of the genomic segment, e.g. the sliding window.}
+ \item {end} {End position of the genomic segment, e.g. the sliding window.}
+ \item {sample} {Sample identifier, here specifically for K562 cells.}
+ \item {total_count} {Total count of reads in the segment.}
+ \item {fraction_w} {Relative W-strand state frequency - proportion of W-oriented reads in the segment.}
+ \item {sil_k} { Optimal number of clusters determined by a silhouette score.}
+ \item {cons_ploidy} {Consensus ploidy state of the genomic segment, determined from counting clusters n = k-1}
+ \item {baseline_coverage} {Baseline coverage for each cell: Mean count number within the ROC divided by the specific consensus ploidy.}
+ \item {norm_count} {Normalized count representing single-cell copy number of the genomic segment: total_count divided by the baseline_coverage.}
 }
 }
 \usage{
 data(data_K562_ploidy)
 }
 \description{
+Used for demonstrating PloidyAssignR's capabilities in analyzing and visualizing ploidy in single cells.
+Serves as a benchmark or reference dataset for comparative studies and method validation. The cell line K562 was extensively characterized by Zhou et al. (2019).
+}
+\details{
 A dataset containing the complete output after ploidy analysis using PloidyAssignR.
+}
+\examples{
+# Visualize the consensus ploidy states using the karyogram style plot
+karyogram_plot <- fct_plot_karyogram(data_K562_ploidy)
+# Visualize the distribution patterns of fraction_w
+watson_plot <- fct_plot_distribution_patterns(data_K562_ploidy, input_chrom = "chr20",input_cell = "01|370", cell_color = "magenta", cell_size = 1)
+# Visualize the single cell copy number states using the heatmap plotting function
+heatmap_chr20 <-fct_plot_sc_heatmap(data_ploidy = data_K562_ploidy, input_chrom = "chr20")
 }
 \keyword{datasets}
