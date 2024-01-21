@@ -21,26 +21,30 @@ fct_plot_distribution_patterns(
 
 \item{input_chrom}{Character vector containing the desired chromosome to be plotted.}
 
-\item{point_size}{Default is 0.5. Size should be chosen depending on sample size.}
+\item{point_size}{(Default: 0.5) Size of the scatter plot points. Adjust based on sample size.}
 
-\item{input_start}{If supplied will only plot distribution patterns in specified region.}
+\item{input_start}{(Optional) Start position for plotting a specific genomic region.}
 
-\item{input_end}{If supplied will only plot distribution patterns in specified region.}
+\item{input_end}{(Optional) End position for plotting a specific genomic region.}
 
-\item{input_cell}{If supplied highlights specified cell in distribution plot.}
+\item{input_cell}{(Optional) Cell identifier to highlight in the distribution plot.}
 
-\item{reg_color}{color of the scatter plot points}
+\item{reg_color}{(Optional) Color of the scatter plot points.}
 
-\item{cell_color}{color of the highlighted input_cell}
+\item{cell_color}{(Optional) Color used to highlight the specified cell.}
 
-\item{cell_size}{Point size of cell input. Equivalent to point size parameter of geom_point. T}
+\item{cell_size}{(Optional) Size of the scatter plot points of the specified cell.}
 }
 \value{
-A ggplot of the distribution patterns.
+Produces a ggplot object displaying the distribution patterns of consensus ploidy.
+This plot aids in visualizing the clustering of the relative W-strand state frequencies along the specified chromosome.
 }
 \description{
-fct_plot_distribution_patterns
+This function generates scatter plots that help with visualizing the distribution patterns of the calulcated relative W-strand state frequencies fraction_w.
+The y-axis shows the relative W-strand state frequency of each cell against the specific genomic position on the x-axis.
+This plot allows comparative analysis of the ploidy-based distribution patterns across multiple cells and chromosomes.
 }
 \examples{
+# Plot distribution patterns for chromosome 1
 fct_plot_distribution_patterns(data_K562_ploidy, input_chrom = "chr1")
 }

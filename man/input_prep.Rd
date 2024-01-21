@@ -3,20 +3,25 @@
 \name{input_prep}
 \alias{input_prep}
 \title{Input Preparation
-Reads in Strand-seq library count file, checks formatting and prepares for analysis.}
+The input_prep function performs the initial processing of Strand-seq library count data to prepare for ploidy analysis by PloidyAssignR.
+It focuses on reading the input data (either from a path or directly as a data.table), verifying its format, and preparing it for subsequent analysis.
+This ensures that the input data adheres to the required structure and format.}
 \usage{
 input_prep(input_data)
 }
 \arguments{
-\item{input_data}{Path to or data.table of the Strand-seq counts file of one sample}
+\item{input_data}{A file path or a data.table containing the Strand-seq counts for one sample.}
 }
 \value{
 Data.table with necessary columns and sorted by setkey() to be more memory efficient.
 }
 \description{
 Input Preparation
-Reads in Strand-seq library count file, checks formatting and prepares for analysis.
+The input_prep function performs the initial processing of Strand-seq library count data to prepare for ploidy analysis by PloidyAssignR.
+It focuses on reading the input data (either from a path or directly as a data.table), verifying its format, and preparing it for subsequent analysis.
+This ensures that the input data adheres to the required structure and format.
 }
 \examples{
-input_prep(data_K562_strand_seq_count)
+# Prepare input Strand-seq count data for PloidyAssignR analysis
+prepared_data <- input_prep(data_K562_strand_seq_count)
 }

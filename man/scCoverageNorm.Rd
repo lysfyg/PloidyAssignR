@@ -7,19 +7,24 @@
 scCoverageNorm(dt_input_fractions, dt_input_ROC)
 }
 \arguments{
-\item{dt_input_fractions}{data.table of Watson fractions}
+\item{dt_input_fractions}{A data.table containing the relative Watson-strand frequencies fraction_w and the respective consensus ploidy states.}
 
-\item{dt_input_ROC}{data.table of regions of confidence supplied by the user. Columns should be: chrom, start, end}
+\item{dt_input_ROC}{A data.table of regions of confidence as specified by the user. This table should have columns chrom, start, and end to define genomic regions used for normalization.}
 }
 \value{
-normalized read count that represents the single cell copy number
+This function adds the normalized read count that represents the single cell copy number as a column to the input data.table.
 }
 \description{
-The baseline coverage of each cell library is determined from several
-regions of confidence and from this the copy number of each segment is determined.
+'scCoverageNorm' normalizes the coverage of single-cell sequencing data.
+The function uses regions of confidence (ROC) to establish a baseline coverage for each cell library.
+This baseline is then utilized to determine the copy number of each genomic segment within the cells.
+By leveraging user-defined regions of confidence, the function ensures that variations in library size
+and sequencing depth across different cells are accounted for, enabling more reliable copy number estimations at a single-cell level.
 }
 \examples{
+# Normalizing coverage for single-cell data
 analysis_results <- scCoverageNorm(data_K562_ploidy[,1:9], data_K562_ROC)
-# use internal plotting methods to visualize results
+
+# Visualizing the normalized data
 fct_plot_sc_heatmap(analysis_results, input_chrom = "chr1")
 }

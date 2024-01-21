@@ -113,15 +113,20 @@ export_plot <- function(input_plot,
 
 #' fct_plot_karyogram
 #'
+#' This function generates a karyogram-like plot from consensus ploidy data. The ploidy state is represented by a color-coded bar graph.
+#' It offers a quick overview over the detected ploidy states across the genome and supplies a first idea about the complexicty of the sample's karyotype.
+#'
 #' @import data.table
 #' @import ggplot2
 #' @import scales
 #'
-#' @param data_ploidy data.table containing consensus ploidy values.
-#' @param chrom_order Optional: Desired order of chromosomes for plotting.
+#' @param data_ploidy Data.table containing ploidy information for the sample. This data should include start and end positions for genomic bins, and the associated ploidy levels.
+#' @param chrom_order (Optional) A vector specifying the order of chromosomes to be plotted. If not provided, the function extracts and orders the chromosomes from the data_ploidy table.
 #'
-#' @return Returns a ggplot bar graph using color-coding to show the consensus ploidy for chromosomes.
-#' @examples fct_plot_karyogram(data_K562_ploidy)
+#' @return Returns a ggplot object representing the karyogram. Ploidy states are color-coded as indicated by a legend.
+#' @examples
+#' # Create a karyogram plot for a given sample's ploidy data
+#' karyogram_plot <- fct_plot_karyogram(data_ploidy)
 #' @export
 #'
 
@@ -165,22 +170,28 @@ fct_plot_karyogram <- function(data_ploidy,
 
 #' fct_plot_distribution_patterns
 #'
+#' This function generates scatter plots that help with visualizing the distribution patterns of the calulcated relative W-strand state frequencies fraction_w.
+#' The y-axis shows the relative W-strand state frequency of each cell against the specific genomic position on the x-axis.
+#' This plot allows comparative analysis of the ploidy-based distribution patterns across multiple cells and chromosomes.
+#'
 #' @import data.table
 #' @import ggplot2
 #' @import scales
 #'
 #' @param data_ploidy Data.table containing consensus ploidy values.
 #' @param input_chrom Character vector containing the desired chromosome to be plotted.
-#' @param point_size Default is 0.5. Size should be chosen depending on sample size.
-#' @param input_start If supplied will only plot distribution patterns in specified region.
-#' @param input_end If supplied will only plot distribution patterns in specified region.
-#' @param input_cell If supplied highlights specified cell in distribution plot.
-#' @param reg_color color of the scatter plot points
-#' @param cell_color color of the highlighted input_cell
-#' @param cell_size Point size of cell input. Equivalent to point size parameter of geom_point. T
+#' @param point_size (Default: 0.5) Size of the scatter plot points. Adjust based on sample size.
+#' @param input_start (Optional) Start position for plotting a specific genomic region.
+#' @param input_end (Optional) End position for plotting a specific genomic region.
+#' @param input_cell (Optional) Cell identifier to highlight in the distribution plot.
+#' @param reg_color (Optional) Color of the scatter plot points.
+#' @param cell_color (Optional) Color used to highlight the specified cell.
+#' @param cell_size (Optional) Size of the scatter plot points of the specified cell.
 #'
-#' @return A ggplot of the distribution patterns.
+#' @return Produces a ggplot object displaying the distribution patterns of consensus ploidy.
+#' This plot aids in visualizing the clustering of the relative W-strand state frequencies along the specified chromosome.
 #' @examples
+#' # Plot distribution patterns for chromosome 1
 #' fct_plot_distribution_patterns(data_K562_ploidy, input_chrom = "chr1")
 #' @export
 #'

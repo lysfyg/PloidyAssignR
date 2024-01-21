@@ -7,16 +7,18 @@
 fct_plot_karyogram(data_ploidy, chrom_order = NULL)
 }
 \arguments{
-\item{data_ploidy}{data.table containing consensus ploidy values.}
+\item{data_ploidy}{Data.table containing ploidy information for the sample. This data should include start and end positions for genomic bins, and the associated ploidy levels.}
 
-\item{chrom_order}{Optional: Desired order of chromosomes for plotting.}
+\item{chrom_order}{(Optional) A vector specifying the order of chromosomes to be plotted. If not provided, the function extracts and orders the chromosomes from the data_ploidy table.}
 }
 \value{
-Returns a ggplot bar graph using color-coding to show the consensus ploidy for chromosomes.
+Returns a ggplot object representing the karyogram. Ploidy states are color-coded as indicated by a legend.
 }
 \description{
-fct_plot_karyogram
+This function generates a karyogram-like plot from consensus ploidy data. The ploidy state is represented by a color-coded bar graph.
+It offers a quick overview over the detected ploidy states across the genome and supplies a first idea about the complexicty of the sample's karyotype.
 }
 \examples{
-fct_plot_karyogram(data_K562_ploidy)
+# Create a karyogram plot for a given sample's ploidy data
+karyogram_plot <- fct_plot_karyogram(data_ploidy)
 }

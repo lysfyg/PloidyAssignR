@@ -1,22 +1,26 @@
 #' Calculate Watson Fractions using a Sliding Window
 #'
-#' Strand-seq count data is used to calculate the watson fractions for a sliding window.
+#' calWatsonFractions is a core function in PloidyAssignR that calculates the relative Watson-strand state frequency "fraction_w" of single-cell Strand-seq count data using a sliding window approach. This calculation is essential for the assessment of strand-specific chromatid segregation patterns, a fundamental step in the systematic inference of ploidy states.
 #'
 #' @import data.table
 #' @import assertthat
 #'
-#' @param dt_input_count The strand-seq count data.table that has been prepared by input_prep().
-#' @param input_chrom = NULL ; if not supplied by user, all chromosomes in the data set supplied will be analyzed.
-#' @param input_window = 10000000
-#' @param input_step = 5000000
-#' @param na_rm = TRUE ; NA throw errors and are removed from dataset.
+#' @param dt_input_count The strand-seq count data prepared by input_prep(). This data.table should contain strand-specific read counts for each cell and chromosome.
+#' @param input_chrom (Default: NULL) Specifies the chromosomes to analyze. If not provided, all chromosomes in the dataset will be analyzed.
+#' @param input_window (Default: 10000000) The size of the sliding window used for calculating the relative Watson-strand state frequency.
+#' @param input_step (Default: 5000000) The step size for the sliding window.
+#' @param na_rm (Default: TRUE) Determines whether NA values should be removed from the dataset. NA values may cause errors in calculations.
 #'
-#' @return A data.table containing the columns "chrom", "start", "end", "sample", "cell", "total_count", "fraction_w".
+#' @return Returns a data.table with the columns "chrom", "start", "end", "sample", "cell", "total_count", "fraction_w". This table provides detailed information on the Watson strand fraction for each window, essential for downstream analyses like chromatid segregation pattern recognition.
 #' @examples
-#' # calculate watson fractions
+#' # Calculate relative W-strand state frequencies for chromosome 1 in K562 cells
 #' K562_chr1_windows <- calWatsonFractions(data_K562_strand_seq_count, input_chrom = "chr1")
-#' # use internal plotting to visualize patterns fct_plot_distribution_patterns()
-#' # then continue analysis with assignConsensusPloidy()...
+#'
+#' # Visualize distribution patterns using internal plotting function
+#' fct_plot_distribution_patterns(K562_chr1_windows)
+#'
+#' # Continue with ploidy assignment using assignConsensusPloidy()
+#' assignConsensusPloidy(K562_chr1_windows)
 #' @export
 #'
 
