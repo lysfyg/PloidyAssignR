@@ -12,7 +12,10 @@ options(shiny.maxRequestSize = 200 * 1024^2) # set max file upload to 100 Mb
 
 run_app <- function(
     onStart = NULL,
-    options = list(launch.browser = TRUE),
+    options = list(
+        launch.browser = TRUE,
+        maxRequestSize = 200 * 1024^2
+    ),
     enableBookmarking = NULL,
     uiPattern = "/",
     ...) {

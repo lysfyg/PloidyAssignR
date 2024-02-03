@@ -8,7 +8,7 @@
 
 app_server <- function(input, output, session) {
     # to address "no visible binding for global variable"
-    data_K562_SC_norm <- NULL
+    data_K562_ploidy <- NULL
 
     # bslib::bs_themer()
 
@@ -39,11 +39,11 @@ app_server <- function(input, output, session) {
             )
             return(output_data())
         } else if (input$select_input == "K562") {
-            if (!exists("data_K562_SC_norm")) {
+            if (!exists("data_K562_ploidy")) {
                 shinyFeedback::showFeedbackDanger(inputId = "plot_karyogram", "Danger: Internal dataset of K562 compromised.")
             } else {
                 shinyFeedback::hideFeedback(inputId = "plot_karyogram")
-                return(data_K562_SC_norm)
+                return(data_K562_ploidy)
             }
         }
     })
@@ -56,9 +56,7 @@ app_server <- function(input, output, session) {
         mod_Plot_Parameters_server("plot_karyogram", input_data = input_data(), plot_style = "karyogram")
         mod_Plot_Parameters_server("plot_pattern", input_data = input_data(), plot_style = "pattern")
         mod_Plot_Parameters_server("plot_heatmap", input_data = input_data(), plot_style = "heatmap")
-        # mod_Export_Plot_server("Export_Plot_1", input_data = input_data(), plot_style = "karyogram")
-        # mod_Export_Plot_server("Export_Plot_2",input_data = input_data(), plot_style = "pattern")
-        # mod_Export_Plot_server("Export_Plot_3",input_data = input_data(), plot_style = "heatmap")
+
     })
 
 

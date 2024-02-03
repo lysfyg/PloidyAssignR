@@ -117,7 +117,7 @@ app_ui <- function(request) {
                         "Output File from PloidyAssignR" = "output_tool",
                         "K562 - near triploid complex karyotype" = "K562"
                     ),
-                    selected = "upload"
+                    selected = "K562"
                 ), # select_input
 
 

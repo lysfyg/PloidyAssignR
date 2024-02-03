@@ -38,9 +38,9 @@ mod_Plot_Parameters_ui <- function(id) {
                         ),
                         selected = "png"
                     ),
-                    numericInput(ns("download_plot_width"), "Enter Plot Width [mm]", value = "297"),
-                    numericInput(ns("download_plot_height"), "Enter Plot Height [mm]", value = "210"),
-                    numericInput(ns("download_plot_dpi"), "Enter Resolution [dpi]", value = "300"),
+                    numericInput(ns("download_plot_width"), "Enter Plot Width [mm]", value = "400"),
+                    numericInput(ns("download_plot_height"), "Enter Plot Height [mm]", value = "300"),
+                    numericInput(ns("download_plot_dpi"), "Enter Resolution [dpi]", value = "60"),
                     downloadButton(ns("download_plot"), "Download Plot!")
                 ), # download
             ), # column left
@@ -92,19 +92,20 @@ mod_Plot_Parameters_server <- function(id, input_data, plot_style = "karyogram")
                     choices = c(extract_chromosomes(input_data))
                 )
             }) # renderUI
-            output$select_cell <- renderUI({
-                ns <- session$ns
-                selectInput(ns("cell"),
-                    label = "Select cell:",
-                    choices = c(
-                        "all cells" = "all",
-                        input_data[, unique(cell)]
-                    ),
-                    selected = "all"
-                )
-            }) # renderUI
+
 
             if (plot_style == "pattern") {
+                output$select_cell <- renderUI({
+                    ns <- session$ns
+                    selectInput(ns("cell"),
+                                label = "Select cell:",
+                                choices = c(
+                                    "all cells" = "all",
+                                    input_data[, unique(cell)]
+                                ),
+                                selected = "all"
+                    )
+                }) # renderUI
                 output$slider_point_size <- renderUI({
                     ns <- session$ns
                     sliderInput(ns("point_size"), label = "Choose point size:",
