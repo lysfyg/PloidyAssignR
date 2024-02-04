@@ -1,20 +1,14 @@
-#' The application server-side
+#' The application server logic
 #'
 #' @param input,output,session Internal parameters for {shiny}.
-#'     DO NOT REMOVE.
 #' @rawNamespace import(shiny, except=c(dataTableOutput, renderDataTable))
 #' @noRd
 #'
 
 app_server <- function(input, output, session) {
-    # to address "no visible binding for global variable"
-    data_K562_ploidy <- NULL
 
-    # bslib::bs_themer()
+   # bslib::bs_themer()
 
-
-    # Your application server logic
-    ##############
     # Upload & View Data: counts, fraction_w, ploidy ....
     ##############
 
@@ -34,10 +28,17 @@ app_server <- function(input, output, session) {
             )
             return(upload_data())
         } else if (input$select_input == "output_tool") {
-            validate(
-                need(output_data(), "Run Analysis to plot the results.")
-            )
-            return(output_data())
+            #validate(
+             #   need(output_data(), "Run Analysis to plot the results.")
+            #)
+            #return(output_data())
+            if (!exists(output_data())) {
+                shinyFeedback::showFeedbackDanger(inputId = "plot_karyogram", "Run analysis and then view results here.")
+                return(NULL) #test
+            } else {
+                shinyFeedback::hideFeedback(inputId = "plot_karyogram")
+                return(output_data())
+            }
         } else if (input$select_input == "K562") {
             if (!exists("data_K562_ploidy")) {
                 shinyFeedback::showFeedbackDanger(inputId = "plot_karyogram", "Danger: Internal dataset of K562 compromised.")
@@ -53,28 +54,24 @@ app_server <- function(input, output, session) {
         validate(
             need(input_data(), "Please select a dataset to plot ploidy analysis results.")
         )
+
+        # plot selection
+        ##############
+
+        # View Karyogram
+        ##############
         mod_Plot_Parameters_server("plot_karyogram", input_data = input_data(), plot_style = "karyogram")
+        # View Distribution Pattern
+        ##############
         mod_Plot_Parameters_server("plot_pattern", input_data = input_data(), plot_style = "pattern")
+
+        # View SC Heatmap
+        ##############
         mod_Plot_Parameters_server("plot_heatmap", input_data = input_data(), plot_style = "heatmap")
 
+
+
     })
-
-
-
-
-    # plot selection
-    ##############
-    # View Karyogram
-    ##############
-
-
-    # View Distribution Pattern
-    ##############
-
-    # View SC Heatmap
-    ##############
-
-
 
     output_data <- mod_PloidyAnalysis_server("PloidyAnalysis_1")
 }

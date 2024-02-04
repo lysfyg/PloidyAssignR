@@ -113,7 +113,7 @@ app_ui <- function(request) {
                 selectInput("select_input",
                     label = "Select Data Set",
                     choices = list(
-                        "Upload own file" = "upload",
+                        "Uploaded File" = "upload",
                         "Output File from PloidyAssignR" = "output_tool",
                         "K562 - near triploid complex karyotype" = "K562"
                     ),

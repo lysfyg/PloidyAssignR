@@ -147,7 +147,8 @@ mod_Export_Plot_server <- function(id, input_data, plot_style = "karyogram") {
             } else {
                 validate(
                     need(input$chrom, "Select chromosome to display."),
-                    need(plot_style, "Please supply plotting style.")
+                    need(plot_style, "Please supply plotting style."),
+                    need(is.null(input_data), "Please upload data or run ploidy analysis to view results.")
                 )
                 if (plot_style == "pattern") {
                     updateTextInput(session, "download_plot_name",
