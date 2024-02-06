@@ -72,6 +72,17 @@ app_server <- function(input, output, session) {
         validate(
             need(input_data(), "Please select a dataset to plot ploidy analysis results.")
         )
+        # output data for plot
+        ###########
+        observe(updateSelectInput(
+            session,
+            "select_input",
+            choices = c(
+                "Uploaded File" = "upload",
+                "Output File from PloidyAssignR" = "output_tool",
+                "K562 - near triploid complex karyotype" = "K562"
+            )
+        )) %>% bindEvent(output_data())
 
         # plot selection
         ##############

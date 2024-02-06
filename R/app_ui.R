@@ -128,14 +128,18 @@ app_ui <- function(request) {
                     label = "Select Data Set",
                     choices = list(
                         "Uploaded File" = "upload",
-                        "Output File from PloidyAssignR" = "output_tool",
+                        #"Output File from PloidyAssignR" = "output_tool",
                         "K562 - near triploid complex karyotype" = "K562"
                     ),
                     selected = "K562"
                 ), # select_input
                     ),
                 column(9,
+                       conditionalPanel(
+                           condition = "input.select_input == 'upload'",
+                           p("Upload data from previous analysis:"),
                        mod_Data_Upload_ui("Upload_Data")
+                       )#cond panel
                        ) # column
                 ), #fluid row
 

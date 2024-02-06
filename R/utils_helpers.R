@@ -29,13 +29,16 @@ extract_chromosomes <- function(input_chrom) {
     # v check if data.table
     if (data.table::is.data.table(input_chrom)) {
         assertthat::assert_that("chrom" %in% colnames(input_chrom),
-                                msg = "The data.table you have supplied does not contain a column specified as >>chrom<<.\n")
+                                msg = "The data.table you have supplied
+                                does not contain a column specified as >>chrom<<.\n"
+                                )
         input_chrom <- input_chrom[, unique(chrom)]
     }
 
     # v report any elements that were not in interal chrom_order and report in warning. Continue
     attempt::message_if(length(dplyr::setdiff(input_chrom, chrom_order)) != 0,
-        msg = "The input dataset contains elements that are not considered chromosomes. Removing these elements and continuing analysis."
+        msg = "The input dataset contains elements that are not considered chromosomes.
+        Removing these elements and continuing analysis."
     )
     # a find unique chromosome elements that are in internal chrom_order
     chrom_unique <- dplyr::intersect(input_chrom, chrom_order)
@@ -46,7 +49,9 @@ extract_chromosomes <- function(input_chrom) {
 
     # v if no chromosomes can be extracted throw error
     assertthat::assert_that(length(chrom_unique) != 0,
-                            msg = "Input data format not correct. Should be a data.table or vector and contain only strings such as chr1.\n")
+                            msg = "Input data format not correct.
+                            Should be a data.table or vector and contain only strings such as chr1.\n"
+                            )
 
 
     # r returns a vector of sorted chrom
