@@ -166,16 +166,17 @@ input_prep <- function(input_data) {
     }
     if (assertthat::is.string(input_data)) {
         # v Make sure file extension is correct
-        assertthat::assert_that(tools::file_ext(input_data) %in% c("csv", "txt", "gz"),
+        assertthat::assert_that(tools::file_ext(input_data) %in% c("csv", "txt", "gz", "rda"),
                                 msg = "Wrong file extension. Please make sure you have supplied the correct file.")
         # IO Load dataset
         dt_input_data <- data.table::fread(input_data)
     }
     # v Make sure dataset has most basic correct format
-    assertthat::assert_that("chrom" %in% colnames(dt_input_data),
+    assertthat::assert_that(
+        "chrom" %in% colnames(dt_input_data),
         "start" %in% colnames(dt_input_data) && is.numeric(dt_input_data$start),
         "end" %in% colnames(dt_input_data) && is.numeric(dt_input_data$end),
-        msg = "One or more required columns in your input file are missing for analysis.
+        msg = "One or more required columns (chrom, start, end) in your input file are missing for analysis.
         Please make sure to use the correct formatting to ensure correct ploidy detection."
     )
     # v check whether parameter files (exclusion or segmentation) are given

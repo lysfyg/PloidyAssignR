@@ -7,12 +7,30 @@
 
 app_server <- function(input, output, session) {
 
-   # bslib::bs_themer()
+    ###
+    # NAVIGATION
+    ###
+
+
+
+
+    # PloidyAnalysis
+    ############
+    output_data <- mod_PloidyAnalysis_server("PloidyAnalysis_1")
 
     # Upload & View Data: counts, fraction_w, ploidy ....
     ##############
+    upload_ploidy <- mod_Data_Upload_server("Upload_Data") # produces a reactive
+    output$view_data <- renderPrint({
+        validate(
+            need("cons_ploidy" %in% colnames(upload_ploidy()), "Please upload a ploidy analysis data set to browse.")
+        )
+        upload_ploidy()
+    })
 
-    upload_data <- mod_Data_Upload_server("Data_Upload_1") # produces a reactive
+
+#    upload_data <- mod_Data_Upload_server("Upload_Data_Ploidy") # produces a reactive
+
 
 
     ##############
@@ -24,9 +42,9 @@ app_server <- function(input, output, session) {
     input_data <- reactive({
         if (input$select_input == "upload") {
             validate(
-                need("cons_ploidy" %in% colnames(upload_data()), "Please upload a ploidy analysis data set to browse.")
+                need("cons_ploidy" %in% colnames(upload_ploidy()), "Please upload a ploidy analysis data set to browse.")
             )
-            return(upload_data())
+            return(upload_ploidy())
         } else if (input$select_input == "output_tool") {
             #validate(
              #   need(output_data(), "Run Analysis to plot the results.")
@@ -69,9 +87,11 @@ app_server <- function(input, output, session) {
         ##############
         mod_Plot_Parameters_server("plot_heatmap", input_data = input_data(), plot_style = "heatmap")
 
+        # View SC Heatmap
+        ##############
+       # mod_Plot_Parameters_server("strand-seq", input_data = upload_strand_seq(), plot_style = "strand_seq")
+
+    })#observe
 
 
-    })
-
-    output_data <- mod_PloidyAnalysis_server("PloidyAnalysis_1")
 }

@@ -30,7 +30,7 @@ mod_PloidyAnalysis_ui <- function(id) {
                     fileInput(
                         ns("upload_data_strand_seq"),
                         label = "Upload Strand-seq Count Data:",
-                        accept = c(".txt", ".gz", ".csv", ".rda")
+                        #accept = c(".txt", ".csv", ".rda", ".txt.gz")
                     ),
                     ## input_path_counts,
                     # Check Strand-seq Data
@@ -42,8 +42,6 @@ mod_PloidyAnalysis_ui <- function(id) {
                 wellPanel(
                     # PARAMETERS
                     #################
-
-
                     # Optional settings
                     sliderInput(
                         inputId = ns("window"),

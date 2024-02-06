@@ -27,7 +27,7 @@ app_ui <- function(request) {
         ), #css
 
         navbarPage("PloidyAssignR",
-            # theme = bslib::bs_theme(),
+                   id= "navbar",
             theme = bslib::bs_theme(
                 verion = 5, bootswatch = "united",
                 bg = "#fff",
@@ -37,26 +37,15 @@ app_ui <- function(request) {
                 success = "#acc151",
                 info = "#6cb4ca",
                 warning = "#e5c009",
-                danger = "#df382c"
+                danger = "#df382c",
             ),
-            #            tags$head(
-            #              tags$style(HTML("
-            #              .shiny-output-error-validation {
-            #                                 color: #00A67C; #turqois
-            #                                 font-size: large;
-            #                                 font-weight: bold;
-            #                             }
-            # "))
-            #            ),
-
-
 
             ##############
-            # Run Analysis
+            # Landing Page
             ##############
             tabPanel(
-                title = "Ploidy Analysis", icon = icon("circle-nodes"),
-                h1("Ploidy Analysis"),
+                title = "Start here", icon = icon("circle-play"),
+                h1("PloidyAssignR"),
                 div(
                     "We developed a framework that uses the unique properties of Strand-seq
                     to automatically assign copy number states in single cells with complex
@@ -66,7 +55,7 @@ app_ui <- function(request) {
                     "This framework can characterize complex aneuploidy at a
                     single cell level and as a result can also detect subclonal copy number
                     changes."
-                    ),
+                ),
                 div("We focused the implementation on the following key features:",
                     tags$ul(
                         tags$li("self-contained and reference independent computation"),
@@ -78,28 +67,50 @@ app_ui <- function(request) {
                 ),
                 div("PloidyAssignR is offered as a R package for users with prior knowledge in bioinformatics and cluster
                 computing.",
-                br(),
-                "To make our tool accessible to the entire genomics community
+                    br(),
+                    "To make our tool accessible to the entire genomics community
                 we created an easy-to-use Rshiny app for Strand-seq copy number
                 assignment studies."),
                 hr(),
-                mod_PloidyAnalysis_ui("PloidyAnalysis_1")
-            ),
+                tabsetPanel(id = "tabset_start", type = "pills",
+
+                            tabPanel("PloidyAnalysis",
+                                     div("PloidyAssignR is an R package with an optional R shiny app, which you are currently running.",
+                                     br(),
+                                         "You can perform ploidy analysis from Strand-seq count data either by the R console directly or through the GUI of this R shiny app.",
+                                     br(),
+                                         "You will need to:",
+                                         tags$ul(
+                                             tags$li("Upload Strand-seq count data."),
+                                             tags$li("Set the parameters to meet your requirements."),
+                                             tags$li("Run analysis... and then use the app's visualization module to inspect the results.")
+                                         )
+                                     ) #div
+                                     ), #tab analysis
+
+                            tabPanel("Visualize Results",
+                                     div("Ploidy AssignR includes several options to visualize the results of ploidy analysis.",
+                                         tags$ul(
+                                             tags$li("Karyogram style plot"),
+                                             tags$li("Scatter plot of the calculated relative W-strand state frequencies."),
+                                             tags$li("Heatmap of single cell copy number states.")
+                                         ), #list
+                                         "We have included the ploidy analysis results for 81 cells of the cell line K562.
+                                         You can inspect this example data set to understand the visualization options."
+                                         )#div
+                                     ) #tab visualize results
+                ) #tabset
+            ), #tabpanel
+
+
             ##############
-            # Upload & View Data: counts, fraction_w, ploidy ....
+            # Run Analysis
             ##############
             tabPanel(
-                title = "Upload Data", icon = icon("upload"),
-                h1("Upload Data"),
-                mod_Data_Upload_ui("Data_Upload_1")
+                "Ploidy Analysis", icon = icon("circle-nodes"),
+                h1("Ploidy Analysis"),
+                mod_PloidyAnalysis_ui("PloidyAnalysis_1")
             ),
-
-
-
-
-
-
-
 
             ##############
             # Inspect Ploidy Results: either from current analysis, after uploading from
@@ -110,6 +121,9 @@ app_ui <- function(request) {
                 h1("Browse Data Set"),
                 # input selection & information
                 ##############
+                fluidRow(
+                    column(3,
+                           # select data type
                 selectInput("select_input",
                     label = "Select Data Set",
                     choices = list(
@@ -119,10 +133,11 @@ app_ui <- function(request) {
                     ),
                     selected = "K562"
                 ), # select_input
-
-
-
-
+                    ),
+                column(9,
+                       mod_Data_Upload_ui("Upload_Data")
+                       ) # column
+                ), #fluid row
 
                 # plot selection
                 ##############
@@ -131,33 +146,25 @@ app_ui <- function(request) {
                     # View Karyogram
                     ##############
                     tabPanel("Karyogram",
-                        icon = icon("align-left"),
+                        icon = icon("chart-bar"),
                         mod_Plot_Parameters_ui("plot_karyogram")
-                        # mod_Export_Plot_ui("Export_Plot_1"),
                     ), # tabpanel karyogram
-
-
-                    # Button: Export Plot
 
                     # View Distribution Pattern
                     ##############
-
                     tabPanel("Distribution Pattern",
-                        value = "tab_patterns", icon = icon("chart-bar"),
+                        value = "tab_patterns", icon = icon("shuffle"),
                         mod_Plot_Parameters_ui("plot_pattern")
-                        # mod_Export_Plot_ui("Export_Plot_2"),
                     ), # tabpanel pattern
-                    # Button: Export Plot
 
                     # View SC Heatmap
                     ##############
-
                     tabPanel("Single Cell Heatmap",
                         icon = icon("sitemap"),
                         mod_Plot_Parameters_ui("plot_heatmap")
-                        # mod_Export_Plot_ui("Export_Plot_3"),
-                    ) # tabpanel heatmap
-                    # Button: Export Plot
+                    ), # tabpanel heatmap
+
+
                 ) # tabsetpanel plots
             ) # tabpanel browse
         ) # navbarpage

@@ -112,6 +112,7 @@ mod_Plot_Parameters_server <- function(id, input_data, plot_style = "karyogram")
                                 min = 0.1, max = 2, value = 1, step = 0.1)
                 })
             } # if pattern
+
         } # if not karyogram
 
         output$download_plot <- downloadHandler(
@@ -166,9 +167,9 @@ mod_Plot_Parameters_server <- function(id, input_data, plot_style = "karyogram")
                         value = "PloidyAssignR_SC_Heatmap"
                     )
                     fct_plot_sc_heatmap(input_data, input_chrom = input$chrom)
-                }
-            }
-        })
+                } #heatmap
+            } #not karyogram
+        })#reactive
 
         output$plot_render <- renderPlot({
             plot_data()

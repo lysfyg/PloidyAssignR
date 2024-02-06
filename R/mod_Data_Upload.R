@@ -10,19 +10,17 @@
 #' @importFrom DT DTOutput renderDT
 mod_Data_Upload_ui <- function(id) {
     ns <- NS(id)
-    tagList(
+
+
         # Read file
-        fileInput(ns("input_path_data"), label = "Select file to be uploaded.",
-                  accept = c(".txt", ".txt.gz", ".csv", ".rda")), ## input_path_counts,
-
-
-
+        fileInput(ns("input_path_data"), label = "Select file:",
+                  #accept = c(".txt", ".csv", ".rda", ".txt.gz")## input_path_counts,
+        )
         # Show Table Button
-        actionButton(ns("button_show_table"), label = "Show data table!"),
+        #actionButton(ns("button_show_table"), label = "Show data table!"),
+        #Interactive Table of Input Data
+        #DT::dataTableOutput(ns("input_data_table"), width = "100%", height = "auto", fill = TRUE)
 
-        # Interactive Table of Input Data
-        DT::dataTableOutput(ns("input_data_table"), width = "100%", height = "auto", fill = TRUE)
-    )
 }
 
 #' Data_Upload Server Functions
@@ -31,6 +29,7 @@ mod_Data_Upload_ui <- function(id) {
 mod_Data_Upload_server <- function(id) {
     moduleServer(id, function(input, output, session) {
         ns <- session$ns
+
         # Read file
         input_data <- reactive({
             req(input$input_path_data)
@@ -39,7 +38,7 @@ mod_Data_Upload_server <- function(id) {
         })
 
         # Interactive Table of Input Data: show table if button_show_table is clicked
-        output$input_data_table <- DT::renderDataTable(input_data()) %>% bindEvent(input$button_show_table)
+       # output$input_data_table <- DT::renderDataTable(input_data()) %>% bindEvent(input$button_show_table)
 
         return(input_data)
     })
