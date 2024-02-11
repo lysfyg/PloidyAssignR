@@ -10,6 +10,7 @@
 #' @importFrom DT DTOutput renderDT
 mod_Data_Upload_ui <- function(id) {
     ns <- NS(id)
+    tagList(
 
 
         # Read file
@@ -20,7 +21,7 @@ mod_Data_Upload_ui <- function(id) {
         #actionButton(ns("button_show_table"), label = "Show data table!"),
         #Interactive Table of Input Data
         #DT::dataTableOutput(ns("input_data_table"), width = "100%", height = "auto", fill = TRUE)
-
+)
 }
 
 #' Data_Upload Server Functions

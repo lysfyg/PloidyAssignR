@@ -3,8 +3,8 @@
 \docType{data}
 \name{test_data_ploidy_consensus}
 \alias{test_data_ploidy_consensus}
-\title{Dataset for testing}
+\title{Datas et for testing}
 \description{
-Dataset for testing
+Datas et for testing
 }
 \keyword{datasets}

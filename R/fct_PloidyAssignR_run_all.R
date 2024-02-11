@@ -57,7 +57,7 @@ PloidyAssignR_run_all <- function(input_data,
             # v Make sure file extension is correct
             assertthat::assert_that(tools::file_ext(input_ROC) %in% c("csv", "txt", "gz"),
                                     msg = "Wrong file extension. Please make sure you have supplied the correct file.")
-            # IO Load dataset
+            # IO Load data set
             data_ROC <- data.table::fread(input_ROC)
         }else{
             data_ROC <- input_ROC

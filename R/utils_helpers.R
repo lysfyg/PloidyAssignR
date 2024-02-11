@@ -37,8 +37,7 @@ extract_chromosomes <- function(input_chrom) {
 
     # v report any elements that were not in interal chrom_order and report in warning. Continue
     attempt::message_if(length(dplyr::setdiff(input_chrom, chrom_order)) != 0,
-        msg = "The input dataset contains elements that are not considered chromosomes.
-        Removing these elements and continuing analysis."
+        msg = "The input data set contains elements that are not considered chromosomes. Removing these elements and continuing analysis."
     )
     # a find unique chromosome elements that are in internal chrom_order
     chrom_unique <- dplyr::intersect(input_chrom, chrom_order)
@@ -173,10 +172,10 @@ input_prep <- function(input_data) {
         # v Make sure file extension is correct
         assertthat::assert_that(tools::file_ext(input_data) %in% c("csv", "txt", "gz", "rda"),
                                 msg = "Wrong file extension. Please make sure you have supplied the correct file.")
-        # IO Load dataset
+        # IO Load data set
         dt_input_data <- data.table::fread(input_data)
     }
-    # v Make sure dataset has most basic correct format
+    # v Make sure data set has most basic correct format
     assertthat::assert_that(
         "chrom" %in% colnames(dt_input_data),
         "start" %in% colnames(dt_input_data) && is.numeric(dt_input_data$start),

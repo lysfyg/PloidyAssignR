@@ -7,7 +7,7 @@
 format_Mb(x)
 }
 \arguments{
-\item{x}{any numeric that will be devided by 1e6}
+\item{x}{any numeric that will be divided by 1e6}
 }
 \description{
 readable output for x axis

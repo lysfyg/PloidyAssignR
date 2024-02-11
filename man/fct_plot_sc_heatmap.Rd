@@ -22,7 +22,7 @@ fct_plot_sc_heatmap(
 }
 \value{
 Returns a heatmap visualization created using the pheatmap package. The heatmap displays the variation in normalized counts across cells,
-with each cell represented as a row and genomic positions (formatted in Mb) as columns. The copy number is color-coded as diplayed by a legend.
+with each cell represented as a row and genomic positions (formatted in Mb) as columns. The copy number is color-coded as displayed by a legend.
 }
 \description{
 fct_plot_sc_heatmap is a function in the PloidyAssignR toolkit designed to visualize normalized count data
@@ -31,6 +31,6 @@ across cells within a specified genomic region. y representing normalized counts
 patterns and anomalies in chromosomal segments across different cells.
 }
 \examples{
-# Create a heatmap for chromosome 1 of a single-cell dataset
-heatmap_plot <- fct_plot_sc_heatmap(data_ploidy, input_chrom = "chr1")
+# Create a heatmap for chromosome 1 of a single-cell data set
+heatmap_plot <- fct_plot_sc_heatmap(data_K562_ploidy, input_chrom = "chr1")
 }

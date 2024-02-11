@@ -2,7 +2,7 @@
 
 #' Example Data: Regions of Confidence for K562
 #'
-#' A dataset containing the start and end point of possible regions of confidence in
+#' A data set containing the start and end point of possible regions of confidence in
 #' several chromosomes as determined by the authors of this package.
 #' @format A data frame with 6 rows and 3 variables
 #' \itemize{
@@ -25,10 +25,10 @@ NULL
 #' Example Data: Results of ploidy analysis for K562 using PloidyAssignR.
 #'
 #' Used for demonstrating PloidyAssignR's capabilities in analyzing and visualizing ploidy in single cells.
-#' Serves as a benchmark or reference dataset for comparative studies and method validation. The cell line K562 was extensively characterized by Zhou et al. (2019).
+#' Serves as a benchmark or reference data set for comparative studies and method validation. The cell line K562 was extensively characterized by Zhou et al. (2019).
 #'
 #'
-#' A dataset containing the complete output after ploidy analysis using PloidyAssignR.
+#' A data set containing the complete output after ploidy analysis using PloidyAssignR.
 #' @format A data frame with 473863 rows and 11 variables
 #' \itemize{
 #'  \item {cell} {Identifier for each cell analyzed.}
@@ -47,7 +47,8 @@ NULL
 #' # Visualize the consensus ploidy states using the karyogram style plot
 #' karyogram_plot <- fct_plot_karyogram(data_K562_ploidy)
 #' # Visualize the distribution patterns of fraction_w
-#' watson_plot <- fct_plot_distribution_patterns(data_K562_ploidy, input_chrom = "chr20",input_cell = "01|370", cell_color = "magenta", cell_size = 1)
+#' watson_plot <- fct_plot_distribution_patterns(data_K562_ploidy, input_chrom = "chr20",
+#' input_cell = "01|370", cell_color = "magenta", cell_size = 1)
 #' # Visualize the single cell copy number states using the heatmap plotting function
 #' heatmap_chr20 <-fct_plot_sc_heatmap(data_ploidy = data_K562_ploidy, input_chrom = "chr20")
 #' @docType data
@@ -61,7 +62,7 @@ NULL
 
 #' Example Data: Strand-seq count data created by MosaiCatcher pipeline.
 #'
-#' A dataset containing the binned Strand-seq count data of the cell line K562.
+#' A data set containing the binned Strand-seq count data of the cell line K562.
 #'
 #' @format A data frame with 2502414 rows and 8 variables
 #' \itemize{
@@ -94,7 +95,7 @@ NULL
 NULL
 
 # test_data_ploidy_consensus
-#' Dataset for testing
+#' Datas et for testing
 #'
 #'
 #' @docType data
@@ -104,7 +105,7 @@ NULL
 NULL
 
 # test_data_ROC
-#' Dataset for testing
+#' Data set for testing
 #'
 #'
 #' @docType data

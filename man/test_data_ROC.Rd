@@ -3,8 +3,8 @@
 \docType{data}
 \name{test_data_ROC}
 \alias{test_data_ROC}
-\title{Dataset for testing}
+\title{Data set for testing}
 \description{
-Dataset for testing
+Data set for testing
 }
 \keyword{datasets}

@@ -32,7 +32,7 @@ PloidyAssignR_colors <- c(
 #'
 #' readable output for x axis
 #'
-#' @param x any numeric that will be devided by 1e6
+#' @param x any numeric that will be divided by 1e6
 #' @examples format_Mb(1000000)
 #'
 #'
@@ -55,8 +55,10 @@ format_Mb <- function(x) {
 #'
 #' @return Saves data.table to the desired output folder
 #' @examples
+#' \dontrun{
 #' path_wd <- getwd()
 #' export_data(data_K562_ploidy, output_folder = path_wd, add_file_name = "Internal_Example")
+#' }
 #' @export
 #'
 
@@ -91,10 +93,12 @@ export_data <- function(data_table_input,
 #'
 #' @return Exports plot using Cairo either as pdf or png.
 #' @examples
+#' \dontrun{
 #' # generate plot
 #' cars_plot <- ggplot2::ggplot(data= mtcars)+ggplot2::geom_point(ggplot2::aes(x=mpg, y=cyl))
 #' # basic export
 #' export_plot(cars_plot, file_name="cars_plot.png", file_type = "png")
+#' }
 #'
 #' @export
 #'
@@ -114,7 +118,7 @@ export_plot <- function(input_plot,
 #' fct_plot_karyogram
 #'
 #' This function generates a karyogram-like plot from consensus ploidy data. The ploidy state is represented by a color-coded bar graph.
-#' It offers a quick overview over the detected ploidy states across the genome and supplies a first idea about the complexicty of the sample's karyotype.
+#' It offers a quick overview over the detected ploidy states across the genome and supplies a first idea about the complexity of the sample's karyotype.
 #'
 #' @import data.table
 #' @import ggplot2
@@ -126,7 +130,7 @@ export_plot <- function(input_plot,
 #' @return Returns a ggplot object representing the karyogram. Ploidy states are color-coded as indicated by a legend.
 #' @examples
 #' # Create a karyogram plot for a given sample's ploidy data
-#' karyogram_plot <- fct_plot_karyogram(data_ploidy)
+#' karyogram_plot <- fct_plot_karyogram(data_K562_ploidy)
 #' @export
 #'
 
@@ -170,7 +174,7 @@ fct_plot_karyogram <- function(data_ploidy,
 
 #' fct_plot_distribution_patterns
 #'
-#' This function generates scatter plots that help with visualizing the distribution patterns of the calulcated relative W-strand state frequencies fraction_w.
+#' This function generates scatter plots that help with visualizing the distribution patterns of the calculated relative W-strand state frequencies fraction_w.
 #' The y-axis shows the relative W-strand state frequency of each cell against the specific genomic position on the x-axis.
 #' This plot allows comparative analysis of the ploidy-based distribution patterns across multiple cells and chromosomes.
 #'
@@ -253,10 +257,10 @@ fct_plot_distribution_patterns <- function(data_ploidy,
 #' @param input_end (Optional) End position of the genomic region for a more focused heatmap.
 #'
 #' @return Returns a heatmap visualization created using the pheatmap package. The heatmap displays the variation in normalized counts across cells,
-#' with each cell represented as a row and genomic positions (formatted in Mb) as columns. The copy number is color-coded as diplayed by a legend.
+#' with each cell represented as a row and genomic positions (formatted in Mb) as columns. The copy number is color-coded as displayed by a legend.
 #' @examples
-#' # Create a heatmap for chromosome 1 of a single-cell dataset
-#'heatmap_plot <- fct_plot_sc_heatmap(data_ploidy, input_chrom = "chr1")
+#' # Create a heatmap for chromosome 1 of a single-cell data set
+#' heatmap_plot <- fct_plot_sc_heatmap(data_K562_ploidy, input_chrom = "chr1")
 #' @export
 #'
 #'
@@ -299,7 +303,7 @@ fct_plot_sc_heatmap <- function(data_ploidy,
 #' @param input_chrom Specific chromosome that should be plotted
 #' @param lab_title Title of plot
 #'
-#' @return ggplot bar graph using teal and orange to specifiy read orientation.
+#' @return ggplot bar graph using teal and orange to specify read orientation.
 #' @examples
 #' plot_cell <- fct_plot_counts_cellwise(data_K562_strand_seq_count,
 #'                             selected_cells = c("01|301", "01|304"),

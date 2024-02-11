@@ -120,7 +120,6 @@ mod_Export_Plot_server <- function(id, input_data, plot_style = "karyogram") {
             content = function(file) {
                 ggplot2::ggsave(
                     filename = file,
-                    # plot = ggplot2::ggplot(mtcars, aes(mpg, wt)) + ggplot2::geom_point(),
                     plot = plot_data(),
                     device = input$download_plot_options,
                     dpi = input$download_plot_dpi,

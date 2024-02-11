@@ -25,16 +25,17 @@ data(data_K562_ploidy)
 }
 \description{
 Used for demonstrating PloidyAssignR's capabilities in analyzing and visualizing ploidy in single cells.
-Serves as a benchmark or reference dataset for comparative studies and method validation. The cell line K562 was extensively characterized by Zhou et al. (2019).
+Serves as a benchmark or reference data set for comparative studies and method validation. The cell line K562 was extensively characterized by Zhou et al. (2019).
 }
 \details{
-A dataset containing the complete output after ploidy analysis using PloidyAssignR.
+A data set containing the complete output after ploidy analysis using PloidyAssignR.
 }
 \examples{
 # Visualize the consensus ploidy states using the karyogram style plot
 karyogram_plot <- fct_plot_karyogram(data_K562_ploidy)
 # Visualize the distribution patterns of fraction_w
-watson_plot <- fct_plot_distribution_patterns(data_K562_ploidy, input_chrom = "chr20",input_cell = "01|370", cell_color = "magenta", cell_size = 1)
+watson_plot <- fct_plot_distribution_patterns(data_K562_ploidy, input_chrom = "chr20",
+input_cell = "01|370", cell_color = "magenta", cell_size = 1)
 # Visualize the single cell copy number states using the heatmap plotting function
 heatmap_chr20 <-fct_plot_sc_heatmap(data_ploidy = data_K562_ploidy, input_chrom = "chr20")
 }

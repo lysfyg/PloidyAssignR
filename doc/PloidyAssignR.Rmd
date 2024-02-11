@@ -87,7 +87,7 @@ The ploidy assignment results can be visualized using a karyogram style bar grap
 #### Distribution Pattern Plot
 The distribution pattern plot is the graphic representation of the relative W-strand state frequency fraction_w across the genome. Each dot is the fraction_w value of an individual cell within a sliding window. The distribution pattern arises from the binomially distributed of mitotic strand segregation. The underlying ploidy state is determined by counting the number of clusters. The distribution pattern plot includes a colored strip at the bottom, which depicts the ploidy-state as determined by PloidyAssignR. 
 
-This plot can be used to visually evaluate the ploidy assignment results and distinguish regions with more homogenous or heterogenous distribution patterns. 
+This plot can be used to visually evaluate the ploidy assignment results and distinguish regions with more homogeneous or heterogenous distribution patterns. 
 
 ```{r Plot Patterns,fig.align="center", fig.width=10, fig.height=4, fig.cap="Figure: Distribution Patterns of Chr7 K562", message = FALSE}
 fct_plot_distribution_patterns(data_example, input_chrom ="chr7", point_size = 0.2)
@@ -130,7 +130,7 @@ PloidyAssignR normalizes the Strand-seq read count by determining a count baseli
 #### Selecting Regions of Confidence
 Flip through the distribution pattern plots to select ROC. ROC should have a low likelihood of subclonal copy number deviation contributing to the consensus ploidy and therefore should fulfill the following criteria:
 
-1. homogenous strand state distribution pattern/clustering
+1. homogeneous strand state distribution pattern/clustering
 2. narrow clustering of strand states
 3. individual fraction_w values of cells should be consistent
 
@@ -154,7 +154,7 @@ print(data_example)
 ```
 
 ### Single Cell Heatmap
-To visualize the single cell copy number within the context of the cell population we use a heatmap that uses hierachical clustering to group cells. See an example plot of Chr2 for K562 below.
+To visualize the single cell copy number within the context of the cell population we use a heatmap that uses hierarchical clustering to group cells. See an example plot of Chr2 for K562 below.
 ```{r Plot Heatmap,fig.align="center", fig.width=7, fig.height=10, fig.cap="Figure: Example Heatmap of SC Copy Number - Chr2 K562"}
 fct_plot_sc_heatmap(data_example, input_chrom = "chr2")
 ```
@@ -163,7 +163,7 @@ fct_plot_sc_heatmap(data_example, input_chrom = "chr2")
 
 The p-arm of Chr20 of K562 carries an example for subclonal copy number deviation that can be detected using PloidyAssignR. We can observe several signs of individual cells not following the majority ploidy state:
 
-1. Heterogenous distribution pattern 
+1. Heterogeneous distribution pattern 
 2. A subset of cells has a different SC copy number and is clustered together
 
 ```{r Plot Subclone Heatmap,fig.align="center", fig.width=10, fig.height=10, fig.cap="Figure: K562 Chr20 Subclonal Copy Number Deviation in Eight Cells (Trisomic Signal in p-Arm)"}

@@ -21,6 +21,6 @@ A data frame with 2502414 rows and 8 variables
 data(data_K562_strand_seq_count)
 }
 \description{
-A dataset containing the binned Strand-seq count data of the cell line K562.
+A data set containing the binned Strand-seq count data of the cell line K562.
 }
 \keyword{datasets}

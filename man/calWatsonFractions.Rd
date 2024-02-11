@@ -15,13 +15,13 @@ calWatsonFractions(
 \arguments{
 \item{dt_input_count}{The strand-seq count data prepared by input_prep(). This data.table should contain strand-specific read counts for each cell and chromosome.}
 
-\item{input_chrom}{(Default: NULL) Specifies the chromosomes to analyze. If not provided, all chromosomes in the dataset will be analyzed.}
+\item{input_chrom}{(Default: NULL) Specifies the chromosomes to analyze. If not provided, all chromosomes in the data set will be analyzed.}
 
 \item{input_window}{(Default: 10000000) The size of the sliding window used for calculating the relative Watson-strand state frequency.}
 
 \item{input_step}{(Default: 5000000) The step size for the sliding window.}
 
-\item{na_rm}{(Default: TRUE) Determines whether NA values should be removed from the dataset. NA values may cause errors in calculations.}
+\item{na_rm}{(Default: TRUE) Determines whether NA values should be removed from the data set. NA values may cause errors in calculations.}
 }
 \value{
 Returns a data.table with the columns "chrom", "start", "end", "sample", "cell", "total_count", "fraction_w". This table provides detailed information on the Watson strand fraction for each window, essential for downstream analyses like chromatid segregation pattern recognition.
@@ -34,7 +34,7 @@ calWatsonFractions is a core function in PloidyAssignR that calculates the relat
 K562_chr1_windows <- calWatsonFractions(data_K562_strand_seq_count, input_chrom = "chr1")
 
 # Visualize distribution patterns using internal plotting function
-fct_plot_distribution_patterns(K562_chr1_windows)
+fct_plot_distribution_patterns(data_K562_ploidy, input_chrom = "chr1")
 
 # Continue with ploidy assignment using assignConsensusPloidy()
 assignConsensusPloidy(K562_chr1_windows)

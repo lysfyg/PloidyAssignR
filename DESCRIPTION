@@ -8,7 +8,7 @@ Description: A computational framework, which utilizes single-cell template stra
  The ploidy detected is essentially the consensus ploidy across the entire cell population and represents the predominant or clonal copy number within the sample set.
  From this, PloidyAssignR can also infer single cell copy number, without relying on a reference sample, haplotype phasing, or copy status of other chromosomes and/or genomic loci.
  We additionally developed an R Shiny app, allowing interactive visualization of ploidy changes and somatic structural variations in single cells.
-License: MIT + file LICENSE
+License: Artistic-2.0
 Depends: 
     R (>= 4.2.0)
 Imports: 

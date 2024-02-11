@@ -40,7 +40,7 @@ Produces a ggplot object displaying the distribution patterns of consensus ploid
 This plot aids in visualizing the clustering of the relative W-strand state frequencies along the specified chromosome.
 }
 \description{
-This function generates scatter plots that help with visualizing the distribution patterns of the calulcated relative W-strand state frequencies fraction_w.
+This function generates scatter plots that help with visualizing the distribution patterns of the calculated relative W-strand state frequencies fraction_w.
 The y-axis shows the relative W-strand state frequency of each cell against the specific genomic position on the x-axis.
 This plot allows comparative analysis of the ploidy-based distribution patterns across multiple cells and chromosomes.
 }

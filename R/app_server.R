@@ -6,6 +6,7 @@
 #'
 
 app_server <- function(input, output, session) {
+    utils::globalVariables(data_K562_ploidy)
 
     ###
     # NAVIGATION
@@ -58,19 +59,17 @@ app_server <- function(input, output, session) {
                 return(output_data())
             }
         } else if (input$select_input == "K562") {
-            if (!exists("data_K562_ploidy")) {
-                shinyFeedback::showFeedbackDanger(inputId = "plot_karyogram", "Danger: Internal dataset of K562 compromised.")
-            } else {
+
                 shinyFeedback::hideFeedback(inputId = "plot_karyogram")
                 return(data_K562_ploidy)
-            }
+
         }
     })
 
 
     observe({
         validate(
-            need(input_data(), "Please select a dataset to plot ploidy analysis results.")
+            need(input_data(), "Please select a data set to plot ploidy analysis results.")
         )
         # output data for plot
         ###########

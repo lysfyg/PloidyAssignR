@@ -16,9 +16,9 @@ Returns a ggplot object representing the karyogram. Ploidy states are color-code
 }
 \description{
 This function generates a karyogram-like plot from consensus ploidy data. The ploidy state is represented by a color-coded bar graph.
-It offers a quick overview over the detected ploidy states across the genome and supplies a first idea about the complexicty of the sample's karyotype.
+It offers a quick overview over the detected ploidy states across the genome and supplies a first idea about the complexity of the sample's karyotype.
 }
 \examples{
 # Create a karyogram plot for a given sample's ploidy data
-karyogram_plot <- fct_plot_karyogram(data_ploidy)
+karyogram_plot <- fct_plot_karyogram(data_K562_ploidy)
 }

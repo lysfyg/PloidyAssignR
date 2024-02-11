@@ -27,6 +27,8 @@ Saves data.table to the desired output folder
 Wrapper function to export table as .csv, uses fwrite which is faster than standard writing options in r
 }
 \examples{
+\dontrun{
 path_wd <- getwd()
 export_data(data_K562_ploidy, output_folder = path_wd, add_file_name = "Internal_Example")
+}
 }

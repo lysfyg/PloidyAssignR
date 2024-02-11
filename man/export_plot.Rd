@@ -33,9 +33,11 @@ Exports plot using Cairo either as pdf or png.
 export_plot
 }
 \examples{
+\dontrun{
 # generate plot
 cars_plot <- ggplot2::ggplot(data= mtcars)+ggplot2::geom_point(ggplot2::aes(x=mpg, y=cyl))
 # basic export
 export_plot(cars_plot, file_name="cars_plot.png", file_type = "png")
+}
 
 }

@@ -24,7 +24,7 @@ fct_plot_counts_cellwise(
 \item{lab_title}{Title of plot}
 }
 \value{
-ggplot bar graph using teal and orange to specifiy read orientation.
+ggplot bar graph using teal and orange to specify read orientation.
 }
 \description{
 fct_plot_counts_cellwise

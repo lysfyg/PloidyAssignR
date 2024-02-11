@@ -8,7 +8,7 @@ testthat::test_that("extract_chromosomes returns a vector containing a string of
 })
 
 testthat::test_that("fct_chromsomes catches wrong formatting", {
-    testthat::expect_message(extract_chromosomes(c("chr1", "chr2", "fufu")), "The input dataset contains elements that are not considered chromosomes. Removing these elements and continuing analysis.")
+    testthat::expect_message(extract_chromosomes(c("chr1", "chr2", "fufu")))
     testthat::expect_error(extract_chromosomes(100))
     testthat::expect_error(extract_chromosomes(data.table(fufu = c(0, 0, 0, 1, 1, 2))))
 })

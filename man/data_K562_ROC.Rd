@@ -16,7 +16,7 @@ A data frame with 6 rows and 3 variables
 data(data_K562_ROC)
 }
 \description{
-A dataset containing the start and end point of possible regions of confidence in
+A data set containing the start and end point of possible regions of confidence in
 several chromosomes as determined by the authors of this package.
 }
 \keyword{datasets}
