@@ -45,8 +45,8 @@ PloidyAssignR is introduced in a manuscript prepared for publication:
 Systematic Inference of Ploidy in Single Cells”.
 
 You can find detailed information on the mathematical reasoning,
-algorithm and ploidy analysis of four example cell lines: RPE-1, C7,
-C29 and K562.
+algorithm and ploidy analysis of four example cell lines: RPE-1, C7, C29
+and K562.
 
 The results where compared to published karyotypes (Riches et
 al. (2001), Mardin et al. (2015) and Zhou et al. (2019)) and the tool
