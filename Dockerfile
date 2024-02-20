@@ -19,4 +19,5 @@ WORKDIR /home
 EXPOSE 8180
 
 # Run the app
-CMD R -e "library(shiny); library(PloidyAssignR); options(shiny.host='0.0.0.0'); options(shiny.port=8180); run_app();"
+#CMD R -e "library(shiny); library(PloidyAssignR); options(shiny.host='0.0.0.0'); options(shiny.port=8180); run_app();"
+CMD R -e "library(shiny); library(PloidyAssignR); options(shiny.host='0.0.0.0'); options(shiny.port=8180)"
