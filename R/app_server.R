@@ -6,7 +6,7 @@
 #'
 
 app_server <- function(input, output, session) {
-    utils::globalVariables(data_K562_ploidy)
+
 
     ###
     # NAVIGATION
@@ -61,7 +61,7 @@ app_server <- function(input, output, session) {
         } else if (input$select_input == "K562") {
 
                 shinyFeedback::hideFeedback(inputId = "plot_karyogram")
-                return(data_K562_ploidy)
+                return(PloidyAssignR::data_K562_ploidy)
 
         }
     })
