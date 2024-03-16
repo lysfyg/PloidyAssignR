@@ -77,7 +77,7 @@ app_server <- function(input, output, session) {
             session,
             "select_input",
             choices = c(
-                "Uploaded File" = "upload",
+                "Upload File" = "upload",
                 "Output File from PloidyAssignR" = "output_tool",
                 "K562 - near triploid complex karyotype" = "K562"
             )
