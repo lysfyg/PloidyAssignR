@@ -125,7 +125,7 @@ mod_PloidyAnalysis_ui <- function(id) {
                         height = "auto",
                         fill = TRUE
                     ),
-                    textInput(ns("output_dir"), "Enter Output Path*"), #  output_dir,
+                    #textInput(ns("output_dir"), "Enter Output Path*"), #  output_dir,
                     textInput(ns("analysis_name"), "Enter Sample Name*", value = "YourAnalysis"), #  analysis_name,
 
 

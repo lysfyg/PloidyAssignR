@@ -4,6 +4,8 @@
 #'     DO NOT REMOVE.
 #' @rawNamespace import(shiny, except=c(dataTableOutput, renderDataTable))
 #' @import data.table
+#' @import markdown
+#' @import htmltools
 #' @importFrom shinyFeedback showFeedbackDanger hideFeedback showFeedbackWarning useShinyFeedback
 #' @importFrom bslib bs_theme
 #'
@@ -44,63 +46,11 @@ app_ui <- function(request) {
             # Landing Page
             ##############
             tabPanel(
-                title = "Start here", icon = icon("circle-play"),
-                h1("PloidyAssignR"),
-                div(
-                    "We developed a framework that uses the unique properties of Strand-seq
-                    to automatically assign copy number states in single cells with complex
-                    karyotypes including highly aneuploid such as near tetraploid and near
-                    hexaploid cells.",
-                    br(),
-                    "This framework can characterize complex aneuploidy at a
-                    single cell level and as a result can also detect subclonal copy number
-                    changes."
-                ),
-                div("We focused the implementation on the following key features:",
-                    tags$ul(
-                        tags$li("self-contained and reference independent computation"),
-                        tags$li("automated copy
-    number assignment for both consensus and single cell ploidy"),
-                        tags$li("straight-forward, time efficient and user-friendly interactive analysis
-    with appealing graphical output options")
-                    )
-                ),
-                div("PloidyAssignR is offered as a R package for users with prior knowledge in bioinformatics and cluster
-                computing.",
-                    br(),
-                    "To make our tool accessible to the entire genomics community
-                we created an easy-to-use Rshiny app for Strand-seq copy number
-                assignment studies."),
-                hr(),
-                tabsetPanel(id = "tabset_start", type = "pills",
+                title = "About", icon = icon("circle-play"),
 
-                            tabPanel("PloidyAnalysis",
-                                     div("PloidyAssignR is an R package with an optional R shiny app, which you are currently running.",
-                                     br(),
-                                         "You can perform ploidy analysis from Strand-seq count data either by the R console directly or through the GUI of this R shiny app.",
-                                     br(),
-                                         "You will need to:",
-                                         tags$ul(
-                                             tags$li("Upload Strand-seq count data."),
-                                             tags$li("Set the parameters to meet your requirements."),
-                                             tags$li("Run analysis... and then use the app's visualization module to inspect the results.")
-                                         )
-                                     ) #div
-                                     ), #tab analysis
-
-                            tabPanel("Visualize Results",
-                                     div("Ploidy AssignR includes several options to visualize the results of ploidy analysis.",
-                                         tags$ul(
-                                             tags$li("Karyogram style plot"),
-                                             tags$li("Scatter plot of the calculated relative W-strand state frequencies."),
-                                             tags$li("Heatmap of single cell copy number states.")
-                                         ), #list
-                                         "We have included the ploidy analysis results for 81 cells of the cell line K562.
-                                         You can inspect this example data set to understand the visualization options."
-                                         )#div
-                                     ) #tab visualize results
-                ) #tabset
+                htmltools::includeMarkdown("shiny_doc/About.Rmd")
             ), #tabpanel
+
 
 
             ##############
@@ -127,7 +77,7 @@ app_ui <- function(request) {
                 selectInput("select_input",
                     label = "Select Data Set",
                     choices = list(
-                        "Uploaded File" = "upload",
+                        "UploadFile" = "upload",
                         #"Output File from PloidyAssignR" = "output_tool",
                         "K562 - near triploid complex karyotype" = "K562"
                     ),

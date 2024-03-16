@@ -1,0 +1,75 @@
+---
+title: "About"
+output: 
+  rmarkdown::html_document
+---
+
+# PloidyAssignR
+PloidyAssignR is a computational framework that allows automated ploidy assignment from Strand-seq libraries.
+Strand-seq is a single-cell template strand DNA sequencing method that generates directional data sets. This sequencing method allows us to measure mitotic chromatid segregation patterns . The orientation of chromatids after mitosis (strand state) can be described using a binomial distribution. The distribution patterns of directional Strand-seq reads across a population of cells are influenced by the underlying ploidy state, that is the number of homologous chromatids. 
+PloidyAssignR uses kmeans clustering to detect the characteristic distribution patterns for ploidy analysis. 
+PloidyAssignR, in contrast to other established ploidy assignment approaches, does not make any prerequesite ploidy assumptions and does not require any external ploidy references. It is able to detect single-cell copy number states by simply observing strand state distribution patterns derived from Strand-seq data.
+
+**Our Paper**
+In order to understand the algorithm and implementation of PloidyAssignR in detail, we suggest refering to our paper *"Systematic Inference of Ploidy in Single Cells using Mitotic Chromatid Segregation Patterns"*. There we introduce the concept of ploidy analysis using mitotic chromatid segregation patterns. Furthermore we present the results of four case studies using different established cell lines: RPE1-WT and C7 are mostly diploid cell lines with characteristic structural variation. C29 is a tetraploid cell line and K562 is a well characterized cell line with a complex near-triploid karyotype. 
+
+
+**Vignette - Example Analysis**
+
+The vignette provides a comprehensive guide to using PloidyAssignR. We introduce the key functionalities of PloidyAssignR and demonstrate its application using sample data from the cell line K562, including first steps of data visualization and contextualization: *browseVignettes("PloidyAssignR")*
+
+**Source Code**
+
+PloidyAssignR was implemented in R and can be used directly from the console. I addition we have implemented an R shiny app to assist with ploidy analysis and visualization of the data. 
+Visit our repository: http://github.com/lysfyg/PloidyAssignR
+
+### Ploidy Analysis
+
+PloidyAssignR includes an optional R shiny app which you are currently running. 
+You can run your analysis directly from the R console or through the GUI of this R shiny app.
+You will need to:
+
+* Upload Strand-seq count data.
+* Set the analysis parameters to meet your requirements. 
+* Run analysis... and then use the app's visualization module to inspect the results.
+
+Computing time can be expected to be approximately 10 min for 80 cells on a standard issue computer. Computing time is influence by the technical set up and the number of cells within the sample set. 
+
+#### Browse Data Set
+PloidyAssignR includes several plotting functions that can also be called through the R shiny app:
+
+* Karyogram style plot of the consensus ploidy states 
+* Scatter plot of the relative W-strand state frequencies to inspect patterns and manually cross check ploidy assignment.
+* Heatmap of the single cell copy number states
+
+Not included in the R shiny app but available through the console: Strand-seq count data plot to inspect the raw data.
+
+#### Example Data
+A central case example is the ploidy analysis of the cell line K562. You can access the ploidy analysis results for K562 presented in the paper from this R package:
+
+* data_K562_strand_seq_count - Strand-seq library count data needed for ploidy analysis.
+* data_K562_ploidy - Output file from PloidyAssignR.
+* data_K562_ROC - Regions of confidence as selected for single cell ploidy analysis.
+
+
+<img align="right" src="images/logo.png">
+
+#### Contributions
+Tania Christiansen designed and developed PloidyAssignR, including software packaging and packaging distribution.
+Ashley D. Sanders and Jan O. Korbel conceived and coordinated the project.
+Ashley D. Sanders conceived the concept of ploidy detection from Strand-seq data.
+Ashley D. Sanders, Jan O. Korbel and Tobias Rausch provided algorithmic improvement, valuable feedback and suggestions for expanded functionality.
+Ashley D. Sanders and Jan O. Korbel revised ploidy analysis results.
+Tania Christiansen analyzed data and prepared figures.
+Tania Christiansen wrote the manuscript with support from Ashley D. Sanders and Jan O. Korbel.
+All authors read and approved the final manuscript.
+This work is part of a medical dissertation project, supervised by Andreas E. Kulozik.
+
+**Acknowledgements**
+We thank Esa Pitkänen, Marco R. Consenza, Maja Starostecka, Dmitrii Olisov and Julia Costea for valuable input into the design of our method. We thank Alexander E. Urban for providing cells from the K562 cell line used by Zhou et al. (2019). We thank Siegfried Momm for the mathematical review of the algorithm and Peter L. Christiansen for input on software architecture and testing. Jan O. Korbel acknowledges an ERC Consolidator Grant (MOSAIC) for funding the study.
+
+**Related Work**
+
+PloidyAssignR is based on previous work on single-cell tri-channel processing (scTRIP) using Strand-seq data:
+
+*Sanders AD, Meiers S, Ghareghani M, Porubsky D, Jeong H, van Vliet MACC, Rausch T, Richter-Pechańska P, Kunz JB, Jenni S, Bolognini D, Longo GMC, Raeder B, Kinanen V, Zimmermann J, Benes V, Schrappe M, Mardin BR, Kulozik AE, Bornhauser B, Bourquin JP, Marschall T, Korbel JO. Single-cell analysis of structural variations and complex rearrangements with tri-channel processing. Nat Biotechnol. 2020 Mar;38(3):343-354. doi: 10.1038/s41587-019-0366-x. Epub 2019 Dec 23. PMID: 31873213; PMCID: PMC7612647.*
