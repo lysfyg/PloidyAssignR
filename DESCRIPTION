@@ -1,13 +1,26 @@
 Package: PloidyAssignR
-Title: PloidyAssignR: Detecting mitotic chromatid segregation patterns for systematic inference of ploidy and somatic copy number profiles in single cells
+Title: PloidyAssignR: Detecting mitotic chromatid segregation patterns for
+    systematic inference of ploidy and somatic copy number profiles in
+    single cells
 Version: 1.0.0
-Authors@R: person('Tania', 'Christiansen', email = 'tania.christiansen@embl.de', role = c('cre', 'aut'))
-Description: A computational framework, which utilizes single-cell template strand sequencing (Strand-seq) data to systematically assign somatic single cell ploidy and SCNA events independent of an extrinsic ploidy assumption.
- Ploidy detection from strand-specific reads relies on the fact that different ploidy states (such as 2n, 4n or 6n) result in distinct, but predictable, homolog segregation patterns within a cell population.
- These are reflected by read orientation patterns, which can be exploited to assign the copy number for every chromosome independently.
- The ploidy detected is essentially the consensus ploidy across the entire cell population and represents the predominant or clonal copy number within the sample set.
- From this, PloidyAssignR can also infer single cell copy number, without relying on a reference sample, haplotype phasing, or copy status of other chromosomes and/or genomic loci.
- We additionally developed an R Shiny app, allowing interactive visualization of ploidy changes and somatic structural variations in single cells.
+Authors@R: 
+    person("Tania", "Christiansen", , "tania.christiansen@embl.de", role = c("cre", "aut"))
+Description: A computational framework, which utilizes single-cell
+    template strand sequencing (Strand-seq) data to systematically assign
+    somatic single cell ploidy and SCNA events independent of an extrinsic
+    ploidy assumption.  Ploidy detection from strand-specific reads relies
+    on the fact that different ploidy states (such as 2n, 4n or 6n) result
+    in distinct, but predictable, homolog segregation patterns within a
+    cell population.  These are reflected by read orientation patterns,
+    which can be exploited to assign the copy number for every chromosome
+    independently.  The ploidy detected is essentially the consensus
+    ploidy across the entire cell population and represents the
+    predominant or clonal copy number within the sample set.  From this,
+    PloidyAssignR can also infer single cell copy number, without relying
+    on a reference sample, haplotype phasing, or copy status of other
+    chromosomes and/or genomic loci.  We additionally developed an R Shiny
+    app, allowing interactive visualization of ploidy changes and somatic
+    structural variations in single cells.
 License: Artistic-2.0
 Depends: 
     R (>= 4.2.0)
@@ -24,7 +37,9 @@ Imports:
     ggplot2 (>= 3.4.2),
     golem (>= 0.3.5),
     grDevices,
+    htmltools,
     magrittr (>= 2.0.3),
+    markdown,
     pheatmap (>= 1.0.12),
     scales (>= 1.2.1),
     shiny (>= 1.7.4),
@@ -39,10 +54,11 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
+biocViews: Software, Clustering, PatternLogic, ShinyApps,
+    CopyNumberVariation, SingleCell, Genetics, StructuralVariation
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 LazyDataCompression: bzip2
 RoxygenNote: 7.2.3
-biocViews: Software, Clustering, PatternLogic, ShinyApps, CopyNumberVariation, SingleCell, Genetics, StructuralVariation
