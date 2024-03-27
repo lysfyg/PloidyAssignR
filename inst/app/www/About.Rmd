@@ -11,7 +11,7 @@ PloidyAssignR uses kmeans clustering to detect the characteristic distribution p
 PloidyAssignR, in contrast to other established ploidy assignment approaches, does not make any prerequesite ploidy assumptions and does not require any external ploidy references. It is able to detect single-cell copy number states by simply observing strand state distribution patterns derived from Strand-seq data.
 
 **Our Paper**
-In order to understand the algorithm and implementation of PloidyAssignR in detail, we suggest refering to our paper *"Systematic Inference of Ploidy in Single Cells using Mitotic Chromatid Segregation Patterns"*. There we introduce the concept of ploidy analysis using mitotic chromatid segregation patterns. Furthermore we present the results of four case studies using different established cell lines: RPE1-WT and C7 are mostly diploid cell lines with characteristic structural variation. C29 is a tetraploid cell line and K562 is a well characterized cell line with a complex near-triploid karyotype. 
+In order to understand the algorithm and implementation of PloidyAssignR in detail, we suggest refering to our paper *"PloidyAssignR: Reference-free Inference of Ploidy in Single Cells using Mitotic Chromatid Segregation Patterns"*. There we introduce the concept of ploidy analysis using mitotic chromatid segregation patterns. Furthermore we present the results of four case studies using different established cell lines: RPE1-WT and C7 are mostly diploid cell lines with characteristic structural variation. C29 is a tetraploid cell line and K562 is a well characterized cell line with a complex near-triploid karyotype. 
 
 
 **Vignette - Example Analysis**
@@ -45,12 +45,11 @@ PloidyAssignR includes several plotting functions that can also be called throug
 Not included in the R shiny app but available through the console: Strand-seq count data plot to inspect the raw data.
 
 #### Example Data
-A central case example is the ploidy analysis of the cell line K562. You can access the ploidy analysis results for K562 presented in the paper from this R package:
+A central case example is the ploidy analysis of the cell line K562. You can access the ploidy analysis results for K562 from within R package:
 
 * data_K562_strand_seq_count - Strand-seq library count data needed for ploidy analysis.
 * data_K562_ploidy - Output file from PloidyAssignR.
 * data_K562_ROC - Regions of confidence as selected for single cell ploidy analysis.
-
 
 <img align="right" src="logo.png">
 
@@ -59,14 +58,17 @@ Tania Christiansen designed and developed PloidyAssignR, including software pack
 Ashley D. Sanders and Jan O. Korbel conceived and coordinated the project.
 Ashley D. Sanders conceived the concept of ploidy detection from Strand-seq data.
 Ashley D. Sanders, Jan O. Korbel and Tobias Rausch provided algorithmic improvement, valuable feedback and suggestions for expanded functionality.
-Ashley D. Sanders and Jan O. Korbel revised ploidy analysis results.
-Tania Christiansen analyzed data and prepared figures.
-Tania Christiansen wrote the manuscript with support from Ashley D. Sanders and Jan O. Korbel.
-All authors read and approved the final manuscript.
-This work is part of a medical dissertation project, supervised by Andreas E. Kulozik.
+Ashley D. Sanders generated the Strand-seq libraries of cell line K562 and selected high quality libraries for further analysis.
+
+Questions can be adressed to:
+Tania Christiansen  tania.christiansen@med.uni-heidelberg.de
+Jan O. Korbel 			korbel@embl.de
+Ashley D. Sanders		Ashley.Sanders@mdc-berlin.de
+
 
 **Acknowledgements**
-We thank Esa Pitkänen, Marco R. Consenza, Maja Starostecka, Dmitrii Olisov and Julia Costea for valuable input into the design of our method. We thank Alexander E. Urban for providing cells from the K562 cell line used by Zhou et al. (2019). We thank Siegfried Momm for the mathematical review of the algorithm and Peter L. Christiansen for input on software architecture and testing. Jan O. Korbel acknowledges an ERC Consolidator Grant (MOSAIC) for funding the study.
+We thank Alexander E. Urban for providing cells from the K562 cell line used by Zhou et al. (2019). We thank Siegfried Momm for the mathematical review of the algorithm and Peter L. Christiansen for input on software architecture and testing. We thank Esa Pitkänen, Marco R. Consenza, Hyobin Jeong, Maja Starostecka, Dmitrii Olisov and Julia Costea for valuable input into the design of our method. We thank Patrick Hasenfeld for helping with Strand-seq library data management and accessibility. Tania Christiansen was the recipient of a HRCMM (Heidelberg Research Center for Molecular Medicine, Heidelberg) Junior Career Fellowship. Jan O. Korbel acknowledges an ERC Consolidator Grant (MOSAIC) for funding the study. 
+
 
 **Related Work**
 
