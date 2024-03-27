@@ -61,8 +61,11 @@ Ashley D. Sanders, Jan O. Korbel and Tobias Rausch provided algorithmic improvem
 Ashley D. Sanders generated the Strand-seq libraries of cell line K562 and selected high quality libraries for further analysis.
 
 Questions can be adressed to:
+
 Tania Christiansen  tania.christiansen@med.uni-heidelberg.de
+
 Jan O. Korbel 			korbel@embl.de
+
 Ashley D. Sanders		Ashley.Sanders@mdc-berlin.de
 
 
