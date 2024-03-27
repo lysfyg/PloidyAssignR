@@ -11,6 +11,18 @@ knitr::opts_chunk$set(
 library(PloidyAssignR)
 library(ggplot2)
 
+## ---- eval = FALSE------------------------------------------------------------
+#  PloidyAssignR_run_all(
+#    input_data = "path/to/strandseq/count",
+#    dt_input_ROC = "path/to/ROC", # optional
+#    max_ploidy_force = NULL, #optional
+#    input_chrom = NULL, # default: all chromosomes present in data set
+#    input_window = 1e+07, # default: window width 10 Mbp
+#    input_step = 5e+06, # default: step length 5 Mbp
+#    export_path = NULL, # default: does not save data to file.
+#    export_file_name = "PloidyAssignR"
+#  )
+
 ## ----Input Data, message=FALSE------------------------------------------------
 data_K562_example_input <- input_prep(input_data = data_K562_strand_seq_count)
 
@@ -20,9 +32,9 @@ data_K562_example_input
 data_example <- calWatsonFractions(data_K562_example_input,
                                    input_chrom = NULL, 
                                    # default: all chromosomes present in data set
-                                   input_window = 10000000, 
+                                   input_window = 1000000, 
                                    # default: window width 10 Mbp
-                                   input_step = 5000000 
+                                   input_step = 500000 
                                    # default: step length 5 Mbp
                                    )
 data_example
@@ -32,12 +44,12 @@ data_example <- assignConsensusPloidy(data_example)
 print(data_example)
 
 ## ----Plot Patterns,fig.align="center", fig.width=10, fig.height=4, fig.cap="Figure: Distribution Patterns of Chr7 K562", message = FALSE----
-fct_plot_distribution_patterns(data_example, input_chrom ="chr7", point_size = 0.2)
+fct_plot_distribution_patterns(data_example, input_chrom ="chr3", point_size = 0.2)
 
 ## ----Plot Karyogram,fig.align="center", fig.width=10, fig.height=10, fig.cap="Figure: Ploidy Assignment for K562", message = FALSE----
 fct_plot_karyogram(data_example)
 
-## ----Ploidy Summary, message = FALSE, echo = FALSE----------------------------
+## ----Ploidy Summary, message = FALSE------------------------------------------
 data_summary <- ploidy_summary(data_K562_ploidy)
 print(data_summary)
 

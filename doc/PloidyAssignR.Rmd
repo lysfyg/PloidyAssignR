@@ -1,6 +1,8 @@
 ---
-title: "PloidyAssign"
-output: rmarkdown::html_vignette
+title: "PloidyAssignR"
+output: 
+  rmarkdown::html_vignette
+  #rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{PloidyAssignR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,8 +20,10 @@ knitr::opts_chunk$set(
 ```
 
 
-#Exploiting Mitotic Chromatid Segregation Patterns for Systematic Inference of Ploidy in Single Cells
-PloidyAssignR is a computational framework that allows automated ploidy assignment from Strand-seq libraries. The tool observes ploidy-dependent strand state distribution patterns and optimizes kmeans clustering to assign the respective ploidy state. 
+## Reference-free Inference of Ploidy in Single Cells using Mitotic Chromatid Segregation Patterns
+PloidyAssignR is a computational framework that allows automated ploidy assignment from Strand-seq libraries. The tool observes ploidy-dependent strand state distribution patterns and optimizes kmeans clustering to assign the respective ploidy state. The vignette provides a comprehensive guide to using PloidyAssignR. We introduce the key functionalities of PloidyAssignR and demonstrate its application using sample data from the cell line K562, including first steps of data visualization and contextualization.
+
+
 ```{r setup}
 library(PloidyAssignR)
 library(ggplot2)
@@ -27,9 +31,9 @@ library(ggplot2)
 
 ## Quick Run
 Customize the following function to your needs to run the analysis in one go. We recommend using the individual functions for analysis (see example workflow below) for first time users.
-```{}
+```{R, eval = FALSE}
 PloidyAssignR_run_all(
-  input_path_data = "path/to/strandseq/count",
+  input_data = "path/to/strandseq/count",
   dt_input_ROC = "path/to/ROC", # optional
   max_ploidy_force = NULL, #optional
   input_chrom = NULL, # default: all chromosomes present in data set
@@ -62,9 +66,9 @@ Choose parameters to specify window width and step length as well as the chromos
 data_example <- calWatsonFractions(data_K562_example_input,
                                    input_chrom = NULL, 
                                    # default: all chromosomes present in data set
-                                   input_window = 10000000, 
+                                   input_window = 1000000, 
                                    # default: window width 10 Mbp
-                                   input_step = 5000000 
+                                   input_step = 500000 
                                    # default: step length 5 Mbp
                                    )
 data_example
@@ -87,10 +91,10 @@ The ploidy assignment results can be visualized using a karyogram style bar grap
 #### Distribution Pattern Plot
 The distribution pattern plot is the graphic representation of the relative W-strand state frequency fraction_w across the genome. Each dot is the fraction_w value of an individual cell within a sliding window. The distribution pattern arises from the binomially distributed of mitotic strand segregation. The underlying ploidy state is determined by counting the number of clusters. The distribution pattern plot includes a colored strip at the bottom, which depicts the ploidy-state as determined by PloidyAssignR. 
 
-This plot can be used to visually evaluate the ploidy assignment results and distinguish regions with more homogeneous or heterogenous distribution patterns. 
+This plot can be used to visually evaluate the ploidy assignment results and distinguish regions with more homogeneous or heterogeneous distribution patterns. 
 
 ```{r Plot Patterns,fig.align="center", fig.width=10, fig.height=4, fig.cap="Figure: Distribution Patterns of Chr7 K562", message = FALSE}
-fct_plot_distribution_patterns(data_example, input_chrom ="chr7", point_size = 0.2)
+fct_plot_distribution_patterns(data_example, input_chrom ="chr3", point_size = 0.2)
 ```
 
 #### Karyogram Plot
@@ -102,7 +106,7 @@ fct_plot_karyogram(data_example)
 
 To obtain a rough estimate of the ploidy states contributing to the mean ploidy of a sample, we count the number of bins for each ploidy state:
 
-```{r Ploidy Summary, message = FALSE, echo = FALSE}
+```{r Ploidy Summary, message = FALSE}
 data_summary <- ploidy_summary(data_K562_ploidy)
 print(data_summary)
 ```

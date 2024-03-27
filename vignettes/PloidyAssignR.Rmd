@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 ```
 
 
-## Exploiting Mitotic Chromatid Segregation Patterns for Systematic Inference of Ploidy in Single Cells
+## Reference-free Inference of Ploidy in Single Cells using Mitotic Chromatid Segregation Patterns
 PloidyAssignR is a computational framework that allows automated ploidy assignment from Strand-seq libraries. The tool observes ploidy-dependent strand state distribution patterns and optimizes kmeans clustering to assign the respective ploidy state. The vignette provides a comprehensive guide to using PloidyAssignR. We introduce the key functionalities of PloidyAssignR and demonstrate its application using sample data from the cell line K562, including first steps of data visualization and contextualization.
 
 
