@@ -52,7 +52,7 @@ A central case example is the ploidy analysis of the cell line K562. You can acc
 * data_K562_ROC - Regions of confidence as selected for single cell ploidy analysis.
 
 
-<img align="right" src="images/logo.png">
+<img align="right" src="logo.png">
 
 #### Contributions
 Tania Christiansen designed and developed PloidyAssignR, including software packaging and packaging distribution.

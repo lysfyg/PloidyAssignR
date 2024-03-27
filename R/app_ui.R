@@ -48,7 +48,7 @@ app_ui <- function(request) {
             tabPanel(
                 title = "About", icon = icon("circle-play"),
 
-                htmltools::includeMarkdown("shiny_doc/About.Rmd")
+                htmltools::includeMarkdown(app_sys("app/www/About.Rmd"))
             ), #tabpanel
 
 
@@ -140,7 +140,12 @@ golem_add_external_resources <- function() {
     )
 
     tags$head(
-        #favicon(),
+        favicon(
+            ico = "favicon",
+            rel = "shortcut icon",
+            resources_path = "www",
+            ext = "png"
+        ),
         bundle_resources(
             path = app_sys("app/www"),
             app_title = "PloidyAssignR"
