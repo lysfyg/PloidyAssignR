@@ -22,7 +22,7 @@ if (!requireNamespace("devtools")) {
     install.packages("devtools")
 }
 
-devtools::install_github("lysfyg/PloidyAssignR")
+devtools::install_github("lysfyg/PloidyAssignR", build_vignettes = TRUE)
 ```
 
 ### Loading PloidyAssignR
