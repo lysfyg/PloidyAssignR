@@ -208,7 +208,7 @@ fct_plot_distribution_patterns <- function(data_ploidy,
                                            input_cell = NULL,
                                            reg_color = "black",
                                            cell_color = "green",
-                                           cell_size = 0.5) {
+                                           cell_size = 1.5) {
     # local binding of variable to function
     chrom <- fraction_w <- cons_ploidy <- cell <- NULL
 

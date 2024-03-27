@@ -13,7 +13,7 @@ fct_plot_distribution_patterns(
   input_cell = NULL,
   reg_color = "black",
   cell_color = "green",
-  cell_size = 0.5
+  cell_size = 1.5
 )
 }
 \arguments{
